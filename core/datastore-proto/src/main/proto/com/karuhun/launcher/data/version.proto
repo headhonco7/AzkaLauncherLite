@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option java_package = "com.karuhun.core.datastore";
+option java_multiple_files = true;
+
+message Version {
+    int32 foodCategoryVersion = 1;
+    int32 foodVersion = 2;
+    int32 applicationVersion = 3;
+    int32 contentsVersion = 4;
+    int32 contentItemsVersion = 5;
+}

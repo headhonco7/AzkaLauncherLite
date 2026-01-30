@@ -1,0 +1,3 @@
+-keep class com.karuhun.feature.content.data.source.remote.response.GetApplicationsResponse { *; }
+-keep class com.karuhun.feature.content.data.source.remote.response.GetContentItemsResponse { *; }
+-keep class com.karuhun.feature.content.data.source.remote.response.GetContentsResponse { *; }

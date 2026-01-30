@@ -1,0 +1,4 @@
+-keep class com.karuhun.feature.hotelprofile.data.source.remote.response.GetHotelProfileResponse { *; }
+-keep class com.karuhun.feature.hotelprofile.data.source.remote.response.GetHotelProfileResponseKt { *; }
+-keep class com.karuhun.feature.hotelprofile.data.source.remote.response.Profile { *; }
+-keep class com.karuhun.feature.hotelprofile.data.source.remote.response.GetRoomDetailResponse { *; }

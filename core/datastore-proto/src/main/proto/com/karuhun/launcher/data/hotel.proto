@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "com.karuhun.core.datastore";
+option java_multiple_files = true;
+
+message Hotel {
+    int32 id = 1;
+    string name = 2;
+    string phone = 3;
+    string email = 4;
+    string website = 5;
+    string default_greeting = 6;
+    string password_setting = 7;
+    string logo_white = 8;
+    string logo_black = 9;
+    string primary_color = 10;
+    string main_photo = 11;
+    string background_photo = 12;
+    string intro_video = 13;
+    string welcome_text = 14;
+    string running_text = 15;
+}

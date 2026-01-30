@@ -1,0 +1,4 @@
+-keep class com.karuhun.feature.restaurant.data.source.remote.response.GetCategoryResponse { *; }
+-keep class com.karuhun.feature.restaurant.data.source.remote.response.GetCategoryResponseKt { *; }
+-keep class com.karuhun.feature.restaurant.data.source.remote.response.GetFoodsResponse { *; }
+-keep class com.karuhun.feature.restaurant.data.source.remote.response.GetFoodsResponseKt { *; }

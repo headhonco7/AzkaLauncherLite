@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="464" height="188pt" viewBox="0 0 348 188">
+    <g class="graph" transform="translate(4 184)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-188h347.62V4z"/>
+        <g class="node">
+            <title>:core:datastore</title>
+            <ellipse cx="103.45" cy="-162" fill="none" stroke="#000" rx="65.17" ry="18"/>
+            <text xml:space="preserve" x="103.45" y="-156.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:datastore</text>
+        </g>
+        <g class="node">
+            <title>:core:model</title>
+            <ellipse cx="130.45" cy="-18" fill="none" stroke="#000" rx="55.45" ry="18"/>
+            <text xml:space="preserve" x="130.45" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:model</text>
+        </g>
+        <g class="edge">
+            <title>:core:datastore-&gt;:core:model</title>
+            <path fill="none" stroke="#000" d="M59.35-148.38C39.51-140.26 18-127.48 6.45-108c-8.16 13.76-8.82 22.65 0 36 14.37 21.77 39.72 34.63 63.78 42.21"/>
+            <path stroke="#000" d="m71.04-33.19 8.65 6.11-10.58.62z"/>
+        </g>
+        <g class="node">
+            <title>:core:datastore-proto</title>
+            <ellipse cx="103.45" cy="-90" fill="none" stroke="#000" rx="87.69" ry="18"/>
+            <text xml:space="preserve" x="103.45" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:datastore-proto</text>
+        </g>
+        <g class="edge">
+            <title>:core:datastore-&gt;:core:datastore-proto</title>
+            <path fill="none" stroke="#000" d="M103.45-143.7v24.16"/>
+            <path stroke="#000" d="m106.95-119.62-3.5 10-3.5-10z"/>
+        </g>
+        <g class="node">
+            <title>:core:common</title>
+            <ellipse cx="274.45" cy="-90" fill="none" stroke="#000" rx="65.17" ry="18"/>
+            <text xml:space="preserve" x="274.45" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:common</text>
+        </g>
+        <g class="edge">
+            <title>:core:datastore-&gt;:core:common</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M138.88-146.5c26.02 10.66 61.6 25.22 89.78 36.76"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m228.33-113.66 7.93 7.03-10.58-.55z"/>
+        </g>
+        <g class="edge">
+            <title>:core:common-&gt;:core:model</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M243.2-73.81c-21.37 10.39-49.9 24.26-72.91 35.44"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m173.4-35.99-10.52 1.22 7.46-7.51z"/>
+        </g>
+    </g>
+</svg>

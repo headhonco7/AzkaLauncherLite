@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="184" height="188pt" viewBox="0 0 138 188">
+    <g class="graph" transform="translate(4 184)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-188h138.34V4z"/>
+        <g class="node">
+            <title>:core:network</title>
+            <ellipse cx="65.17" cy="-162" fill="none" stroke="#000" rx="62.1" ry="18"/>
+            <text xml:space="preserve" x="65.17" y="-156.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:network</text>
+        </g>
+        <g class="node">
+            <title>:core:common</title>
+            <ellipse cx="65.17" cy="-90" fill="none" stroke="#000" rx="65.17" ry="18"/>
+            <text xml:space="preserve" x="65.17" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:common</text>
+        </g>
+        <g class="edge">
+            <title>:core:network-&gt;:core:common</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M65.17-143.7v24.16"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m68.67-121.13-3.5 10-3.5-10z"/>
+        </g>
+        <g class="node">
+            <title>:core:model</title>
+            <ellipse cx="65.17" cy="-18" fill="none" stroke="#000" rx="55.45" ry="18"/>
+            <text xml:space="preserve" x="65.17" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:model</text>
+        </g>
+        <g class="edge">
+            <title>:core:common-&gt;:core:model</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M65.17-71.7v24.16"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m68.67-49.13-3.5 10-3.5-10z"/>
+        </g>
+    </g>
+</svg>

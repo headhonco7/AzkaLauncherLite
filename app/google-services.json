@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "289366566048",
+    "project_id": "hotel-17f7b",
+    "storage_bucket": "hotel-17f7b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289366566048:android:d737e2b96ad250473f55c5",
+        "android_client_info": {
+          "package_name": "com.karuhun.launcher"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdx8148eP4ed3nPXGWWWgt7BJHggP_0QY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289366566048:android:2bf929f652e2863d3f55c5",
+        "android_client_info": {
+          "package_name": "com.karuhun.launcher.demo.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdx8148eP4ed3nPXGWWWgt7BJHggP_0QY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,536 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2784" height="620pt" viewBox="0 0 2088 620">
+    <g class="graph" transform="translate(4 616)">
+        <title>G</title>
+        <path fill="#fff" d="M-4 4v-620h2088V4z"/>
+        <g class="node">
+            <title>:app</title>
+            <ellipse cx="1209" cy="-594" fill="none" stroke="#000" rx="27" ry="18"/>
+            <text xml:space="preserve" x="1209" y="-588.95" font-family="Times,serif" font-size="14" text-anchor="middle">:app</text>
+        </g>
+        <g class="node">
+            <title>:core:ui</title>
+            <ellipse cx="1010" cy="-234" fill="none" stroke="#000" rx="39.07" ry="18"/>
+            <text xml:space="preserve" x="1010" y="-228.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:ui</text>
+        </g>
+        <g class="edge">
+            <title>:app-&gt;:core:ui</title>
+            <path fill="none" stroke="#000" d="M1182.69-588.66C1130.24-578.42 1013.53-547.39 965-468c-20.92 34.22 16.02 151.18 34.9 205.22"/>
+            <path stroke="#000" d="m1003.19-263.98.04 10.59-6.64-8.26z"/>
+        </g>
+        <g class="node">
+            <title>:core:domain</title>
+            <ellipse cx="1117" cy="-306" fill="none" stroke="#000" rx="60.05" ry="18"/>
+            <text xml:space="preserve" x="1117" y="-300.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:domain</text>
+        </g>
+        <g class="edge">
+            <title>:app-&gt;:core:domain</title>
+            <path fill="none" stroke="#000" d="M1209.02-575.79c-.78 31.43-6.34 99.01-38.02 143.79-17.09 24.16-41.82 10.03-56 36-10.02 18.36-8.89 42.19-5.59 60.56"/>
+            <path stroke="#000" d="m1112.81-336.25-1.34 10.51-5.5-9.05z"/>
+        </g>
+        <g class="node">
+            <title>:navigation</title>
+            <ellipse cx="620" cy="-522" fill="none" stroke="#000" rx="52.38" ry="18"/>
+            <text xml:space="preserve" x="620" y="-516.95" font-family="Times,serif" font-size="14" text-anchor="middle">:navigation</text>
+        </g>
+        <g class="edge">
+            <title>:app-&gt;:navigation</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M1182.55-589.86c-88.57 10.53-376.18 44.71-502.32 59.7"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m682.25-526.87-10.35-2.3 9.52-4.65z"/>
+        </g>
+        <g class="node">
+            <title>:core:designsystem</title>
+            <ellipse cx="668" cy="-234" fill="none" stroke="#000" rx="82.06" ry="18"/>
+            <text xml:space="preserve" x="668" y="-228.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:designsystem</text>
+        </g>
+        <g class="edge">
+            <title>:app-&gt;:core:designsystem</title>
+            <path fill="none" stroke="#000" d="M1181.83-592.54C1009.53-589.26 76-566.17 76-451v74c0 61.86 50.06 64.84 107 89 68.74 29.17 272.85 43.3 393.26 49.27"/>
+            <path stroke="#000" d="m576.31-242.23 9.82 3.98-10.16 3.01z"/>
+        </g>
+        <g class="node">
+            <title>:core:network</title>
+            <ellipse cx="1535" cy="-162" fill="none" stroke="#000" rx="62.1" ry="18"/>
+            <text xml:space="preserve" x="1535" y="-156.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:network</text>
+        </g>
+        <g class="edge">
+            <title>:app-&gt;:core:network</title>
+            <path fill="none" stroke="#000" d="M1235.74-590.5c125.4 12.3 653.15 70.94 749.26 194.5 9.82 12.63 8.93 22.72 0 36-70.96 105.55-152.14 49.36-265 108-26.26 13.64-29.76 22.32-56 36-25.81 13.46-55.82 25.96-80.4 35.44"/>
+            <path stroke="#000" d="m1585.08-177.38-10.59.29 8.1-6.83z"/>
+        </g>
+        <g class="node">
+            <title>:sync:work</title>
+            <ellipse cx="1346" cy="-450" fill="none" stroke="#000" rx="51.86" ry="18"/>
+            <text xml:space="preserve" x="1346" y="-444.95" font-family="Times,serif" font-size="14" text-anchor="middle">:sync:work</text>
+        </g>
+        <g class="edge">
+            <title>:app-&gt;:sync:work</title>
+            <path fill="none" stroke="#000" d="M1228.28-580.86c15 9.95 35.87 24.95 51.72 40.86 19.02 19.08 36.99 43.92 49.35 62.51"/>
+            <path stroke="#000" d="m1332.26-479.44 2.54 10.29-8.4-6.46z"/>
+        </g>
+        <g class="node">
+            <title>:core:database</title>
+            <ellipse cx="2003" cy="-162" fill="none" stroke="#000" rx="63.63" ry="18"/>
+            <text xml:space="preserve" x="2003" y="-156.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:database</text>
+        </g>
+        <g class="edge">
+            <title>:app-&gt;:core:database</title>
+            <path fill="none" stroke="#000" d="M1236.02-591.52C1383.04-583.13 2080-538.71 2080-451v146c0 45.35-30.73 90.07-53.36 116.86"/>
+            <path stroke="#000" d="m2029.54-186.14-9.21 5.23 3.94-9.83z"/>
+        </g>
+        <g class="node">
+            <title>:feature:hotel-profile:data</title>
+            <ellipse cx="1251" cy="-378" fill="none" stroke="#000" rx="105.6" ry="18"/>
+            <text xml:space="preserve" x="1251" y="-372.95" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:hotel-profile:data</text>
+        </g>
+        <g class="edge">
+            <title>:app-&gt;:feature:hotel-profile:data</title>
+            <path fill="none" stroke="#000" d="M1212.37-575.85c7.22 36.78 24.25 123.56 33.09 168.61"/>
+            <path stroke="#000" d="m1248.83-408.2-1.5 10.48-5.36-9.14z"/>
+        </g>
+        <g class="node">
+            <title>:feature:home:data</title>
+            <ellipse cx="1455" cy="-378" fill="none" stroke="#000" rx="80.52" ry="18"/>
+            <text xml:space="preserve" x="1455" y="-372.95" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:home:data</text>
+        </g>
+        <g class="edge">
+            <title>:app-&gt;:feature:home:data</title>
+            <path fill="none" stroke="#000" d="M1217.87-576.91c5.65 10.43 13.04 24.37 19.13 36.91 22.95 47.25 8.77 73.07 48 108 15.65 13.93 62.4 27.97 102.92 38.1"/>
+            <path stroke="#000" d="m1388.53-397.36 8.88 5.78-10.54 1.02z"/>
+        </g>
+        <g class="node">
+            <title>:feature:screensaver:ui</title>
+            <ellipse cx="1068" cy="-450" fill="none" stroke="#000" rx="94.34" ry="18"/>
+            <text xml:space="preserve" x="1068" y="-444.95" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:screensaver:ui</text>
+        </g>
+        <g class="edge">
+            <title>:app-&gt;:feature:screensaver:ui</title>
+            <path fill="none" stroke="#000" d="M1194.44-578.34c-24.05 24.23-72.35 72.87-101.8 102.53"/>
+            <path stroke="#000" d="m1095.47-473.69-9.53 4.63 4.56-9.57z"/>
+        </g>
+        <g class="edge">
+            <title>:core:domain-&gt;:core:ui</title>
+            <path fill="none" stroke="#000" d="m1092.72-289.12-51.84 33.92"/>
+            <path stroke="#000" d="m1043.19-252.53-10.28 2.54 6.45-8.4z"/>
+        </g>
+        <g class="edge">
+            <title>:core:domain-&gt;:core:designsystem</title>
+            <path fill="none" stroke="#000" d="M1064.62-296.83c-78.87 12.29-228.55 35.63-319.78 49.85"/>
+            <path stroke="#000" d="m745.38-243.52-10.42-1.92 9.34-5z"/>
+        </g>
+        <g class="node">
+            <title>:core:common</title>
+            <ellipse cx="1245" cy="-90" fill="none" stroke="#000" rx="65.17" ry="18"/>
+            <text xml:space="preserve" x="1245" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:common</text>
+        </g>
+        <g class="edge">
+            <title>:core:domain-&gt;:core:common</title>
+            <path fill="none" stroke="#000" d="M1127.26-287.85c22.19 37.1 74.79 125.04 101.53 169.75"/>
+            <path stroke="#000" d="m1231.79-119.91 2.13 10.38-8.14-6.79z"/>
+        </g>
+        <g class="node">
+            <title>:core:data</title>
+            <ellipse cx="1776" cy="-234" fill="none" stroke="#000" rx="47.26" ry="18"/>
+            <text xml:space="preserve" x="1776" y="-228.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:data</text>
+        </g>
+        <g class="edge">
+            <title>:core:domain-&gt;:core:data</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M1172.9-299.06c124.32 13.2 422.51 44.88 547.01 58.1"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m1718.46-244.63 9.58 4.54-10.32 2.42z"/>
+        </g>
+        <g class="edge">
+            <title>:navigation-&gt;:core:ui</title>
+            <path fill="none" stroke="#000" d="M655.19-508.48C705.94-489.35 801.15-449.36 870-396c51.43 39.86 98.2 100.82 122.48 135.16"/>
+            <path stroke="#000" d="m995.29-262.94 2.85 10.2-8.59-6.2z"/>
+        </g>
+        <g class="edge">
+            <title>:navigation-&gt;:core:designsystem</title>
+            <path fill="none" stroke="#000" d="M567.22-521.67C419.44-521.73 19.56-508.52 133-360c53.67 70.27 310.24 104.32 447.65 117.76"/>
+            <path stroke="#000" d="m580.82-245.74 9.62 4.44-10.29 2.53z"/>
+        </g>
+        <g class="edge">
+            <title>:navigation-&gt;:feature:screensaver:ui</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M667.1-513.64c75.55 11.8 224.84 35.13 318.38 49.75"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m984.28-467.62 9.34 5-10.42 1.91z"/>
+        </g>
+        <g class="edge">
+            <title>:navigation-&gt;:core:common</title>
+            <path fill="none" stroke="#000" d="M567.95-519.06C456.46-514.34 198.11-500.18 117-468 56.27-443.91 0-444.33 0-379v146c0 65.33 55.6 66.68 117 89 98.12 35.66 813.93 48.67 1051.56 52.04"/>
+            <path stroke="#000" d="m1168.38-95.47 9.95 3.64-10.05 3.36z"/>
+        </g>
+        <g class="node">
+            <title>:feature:home:ui</title>
+            <ellipse cx="789" cy="-378" fill="none" stroke="#000" rx="72.34" ry="18"/>
+            <text xml:space="preserve" x="789" y="-372.95" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:home:ui</text>
+        </g>
+        <g class="edge">
+            <title>:navigation-&gt;:feature:home:ui</title>
+            <path fill="none" stroke="#000" d="M639.06-504.99c29.63 24.91 86.94 73.06 121.49 102.09"/>
+            <path stroke="#000" d="m762.67-405.7 5.4 9.11-9.91-3.75z"/>
+        </g>
+        <g class="node">
+            <title>:feature:main-menu:ui</title>
+            <ellipse cx="236" cy="-378" fill="none" stroke="#000" rx="94.34" ry="18"/>
+            <text xml:space="preserve" x="236" y="-372.95" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:main-menu:ui</text>
+        </g>
+        <g class="edge">
+            <title>:navigation-&gt;:feature:main-menu:ui</title>
+            <path fill="none" stroke="#000" d="M585.25-508.15c-67.54 24.98-216.84 80.19-296.6 109.68"/>
+            <path stroke="#000" d="m289.89-395.19-10.6.18 8.17-6.75z"/>
+        </g>
+        <g class="node">
+            <title>:feature:content:ui</title>
+            <ellipse cx="620" cy="-378" fill="none" stroke="#000" rx="78.48" ry="18"/>
+            <text xml:space="preserve" x="620" y="-372.95" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:content:ui</text>
+        </g>
+        <g class="edge">
+            <title>:navigation-&gt;:feature:content:ui</title>
+            <path fill="none" stroke="#000" d="M620-503.59v96.17"/>
+            <path stroke="#000" d="m623.5-407.62-3.5 10-3.5-10z"/>
+        </g>
+        <g class="node">
+            <title>:feature:restaurant:ui</title>
+            <ellipse cx="436" cy="-378" fill="none" stroke="#000" rx="87.69" ry="18"/>
+            <text xml:space="preserve" x="436" y="-372.95" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:restaurant:ui</text>
+        </g>
+        <g class="edge">
+            <title>:navigation-&gt;:feature:restaurant:ui</title>
+            <path fill="none" stroke="#000" d="M599.25-504.99c-32.32 24.94-94.86 73.21-132.45 102.22"/>
+            <path stroke="#000" d="m469.07-400.1-10.06 3.34 5.78-8.88z"/>
+        </g>
+        <g class="edge">
+            <title>:core:network-&gt;:core:common</title>
+            <path fill="none" stroke="#000" d="M1488.41-149.75c-50.18 12.11-130.13 31.41-184.61 44.56"/>
+            <path stroke="#000" d="m1304.94-101.87-10.54-1.05 8.9-5.75z"/>
+        </g>
+        <g class="edge">
+            <title>:sync:work-&gt;:core:domain</title>
+            <path fill="none" stroke="#000" d="M1297.85-442.8c-54.84 8.06-139.74 23.85-161.85 46.8-15.34 15.92-19.59 41.03-20.29 60.53"/>
+            <path stroke="#000" d="m1119.21-335.69-3.53 9.99-3.47-10.02z"/>
+        </g>
+        <g class="edge">
+            <title>:sync:work-&gt;:feature:hotel-profile:data</title>
+            <path fill="none" stroke="#000" d="M1324.92-433.46c-12.26 9.03-27.96 20.6-41.74 30.75"/>
+            <path stroke="#000" d="m1285.36-399.97-10.12 3.11 5.97-8.75z"/>
+        </g>
+        <g class="node">
+            <title>:feature:content:data</title>
+            <ellipse cx="1679" cy="-378" fill="none" stroke="#000" rx="86.67" ry="18"/>
+            <text xml:space="preserve" x="1679" y="-372.95" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:content:data</text>
+        </g>
+        <g class="edge">
+            <title>:sync:work-&gt;:feature:content:data</title>
+            <path fill="none" stroke="#000" d="M1389.53-439.85c55.67 11.7 152.76 32.11 219.01 46.04"/>
+            <path stroke="#000" d="m1609.17-397.26 9.07 5.49-10.51 1.36z"/>
+        </g>
+        <g class="node">
+            <title>:feature:restaurant:data</title>
+            <ellipse cx="1880" cy="-378" fill="none" stroke="#000" rx="95.88" ry="18"/>
+            <text xml:space="preserve" x="1880" y="-372.95" font-family="Times,serif" font-size="14" text-anchor="middle">:feature:restaurant:data</text>
+        </g>
+        <g class="edge">
+            <title>:sync:work-&gt;:feature:restaurant:data</title>
+            <path fill="none" stroke="#000" d="M1394.98-443.56c79.74 9 242.58 27.95 380.02 47.56 7.7 1.1 15.72 2.3 23.73 3.53"/>
+            <path stroke="#000" d="m1799.18-395.94 9.35 5-10.43 1.92z"/>
+        </g>
+        <g class="node">
+            <title>:core:model</title>
+            <ellipse cx="1748" cy="-18" fill="none" stroke="#000" rx="55.45" ry="18"/>
+            <text xml:space="preserve" x="1748" y="-12.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:model</text>
+        </g>
+        <g class="edge">
+            <title>:core:database-&gt;:core:model</title>
+            <path fill="none" stroke="#000" d="M1999.57-143.85c-4.96 20.23-16.11 53.43-38.57 71.85-41.15 33.75-100.8 46.45-146.51 51.02"/>
+            <path stroke="#000" d="m1814.96-17.51-10.27-2.61 9.66-4.36z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:hotel-profile:data-&gt;:core:ui</title>
+            <path fill="none" stroke="#000" d="M1242.72-359.63c-10.46 20.14-30.33 52.94-56.72 71.63-37.88 26.83-89.53 40.28-127.08 46.89"/>
+            <path stroke="#000" d="m1059.68-237.68-10.43-1.83 9.3-5.08z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:hotel-profile:data-&gt;:core:domain</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M1219.24-360.41c-18.98 9.91-43.23 22.59-63.36 33.1"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m1158.95-324.97-10.48 1.53 7.24-7.73z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:hotel-profile:data-&gt;:core:designsystem</title>
+            <path fill="none" stroke="#000" d="M1154.12-370.49C1018.4-360.81 784.21-341.83 749-324c-27.55 13.95-50.29 41.46-64.59 62.23"/>
+            <path stroke="#000" d="m687.36-259.88-8.44 6.4 2.6-10.27z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:hotel-profile:data-&gt;:core:network</title>
+            <path fill="none" stroke="#000" d="M1273.29-360.21c50.53 38.08 173.9 131.04 231.35 174.33"/>
+            <path stroke="#000" d="m1506.51-188.85 5.88 8.81-10.1-3.22z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:hotel-profile:data-&gt;:core:database</title>
+            <path fill="none" stroke="#000" d="M1321.71-364.24C1454.94-339.8 1738.21-285.8 1832-252c49.22 17.74 102.09 47 135.8 67.1"/>
+            <path stroke="#000" d="m1969.57-187.92 6.76 8.16-10.37-2.17z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:hotel-profile:data-&gt;:core:common</title>
+            <path fill="none" stroke="#000" d="M1250.63-359.54c-1 47.78-3.79 181.03-5.03 239.93"/>
+            <path stroke="#000" d="m1249.1-119.67-3.71 9.93-3.29-10.08z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:home:data-&gt;:core:ui</title>
+            <path fill="none" stroke="#000" d="M1412.75-362.33c-29.69 10.42-70.27 24.89-105.75 38.33-40.29 15.26-49.05 22.63-90 36-54.59 17.82-118.85 33.47-161.13 43.06"/>
+            <path stroke="#000" d="m1056.82-241.57-10.52-1.22 8.99-5.61z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:home:data-&gt;:core:domain</title>
+            <path fill="none" stroke="#000" d="M1397.28-365.05c-61.5 12.74-158.41 32.81-220.64 45.7"/>
+            <path stroke="#000" d="m1177.43-315.94-10.5-1.4 9.08-5.46z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:home:data-&gt;:core:designsystem</title>
+            <path fill="none" stroke="#000" d="M1397.72-364.95c-10.51 1.89-21.42 3.65-31.72 4.95-127.9 16.13-458.74-10.43-579 36-23.89 9.22-24.58 20.54-45 36-13.15 9.96-27.88 20.61-40.72 29.73"/>
+            <path stroke="#000" d="m703.32-255.42-10.19 2.92 6.14-8.64z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:home:data-&gt;:core:network</title>
+            <path fill="none" stroke="#000" d="M1461.41-359.85c13.78 36.86 46.33 123.93 63.14 168.89"/>
+            <path stroke="#000" d="m1527.8-192.24.23 10.59-6.78-8.14z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:home:data-&gt;:core:common</title>
+            <path fill="none" stroke="#000" d="m1442.49-359.97-178.3 242.84"/>
+            <path stroke="#000" d="m1267.08-115.15-8.74 5.99 3.1-10.14z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:screensaver:ui-&gt;:core:ui</title>
+            <path fill="none" stroke="#000" d="M1063.35-431.85c-9.97 36.78-33.49 123.56-45.7 168.61"/>
+            <path stroke="#000" d="m1021.06-262.43-5.99 8.74-.77-10.57z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:screensaver:ui-&gt;:core:domain</title>
+            <path fill="none" stroke="#000" d="M1063.33-431.53c-4.04 18.5-7.86 48.2 1.67 71.53 4.53 11.1 12.64 21.13 21.12 29.4"/>
+            <path stroke="#000" d="m1088.4-333.25 5.08 9.3-9.77-4.11z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:screensaver:ui-&gt;:core:designsystem</title>
+            <path fill="none" stroke="#000" d="M1036.93-432.55C998.62-412.85 931.06-380.02 870-360c-72.56 23.79-110.02-13.69-168 36-17.77 15.22-26.28 40.79-30.34 60.63"/>
+            <path stroke="#000" d="m675.14-262.93-5.18 9.25-1.72-10.45z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:screensaver:ui-&gt;:core:network</title>
+            <path fill="none" stroke="#000" d="M1154.21-442.39c133.9 10.69 377.92 32.01 390.79 46.39 26.35 29.44 6.71 149.43-4.11 204.78"/>
+            <path stroke="#000" d="m1544.36-190.74-5.39 9.11-1.47-10.49z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:screensaver:ui-&gt;:core:database</title>
+            <path fill="none" stroke="#000" d="M1152.99-441.81c40.03 3.25 88.46 6.98 132.01 9.81 38.86 2.52 671.75 9.2 700 36 55.85 53 38.79 155.47 26.22 204.94"/>
+            <path stroke="#000" d="m2014.68-190.46-5.96 8.76-.8-10.57z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:screensaver:ui-&gt;:feature:hotel-profile:data</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M1108.61-433.46c26.52 10.14 61.4 23.48 90 34.42"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m1198.31-402.9 8.09 6.84-10.59-.3z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:screensaver:ui-&gt;:core:common</title>
+            <path fill="none" stroke="#000" d="M974.53-447.31C753-442.8 208.89-428.51 133-396c-53.18 22.78-95 31.14-95 89v74C38-118.72 902.49-96.17 1168.23-91.93"/>
+            <path stroke="#000" d="m1168.22-95.43 9.95 3.65-10.06 3.35z"/>
+        </g>
+        <g class="edge">
+            <title>:core:common-&gt;:core:model</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M1302.21-81.04c95.36 13.27 286 39.8 384.19 53.47"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m1685.2-31.27 9.42 4.84-10.38 2.09z"/>
+        </g>
+        <g class="edge">
+            <title>:core:data-&gt;:core:network</title>
+            <path fill="none" stroke="#000" d="M1739.13-222.29c-40.19 11.67-104.9 30.47-150.67 43.76"/>
+            <path stroke="#000" d="m1589.58-175.21-10.58-.57 8.63-6.15z"/>
+        </g>
+        <g class="edge">
+            <title>:core:data-&gt;:core:database</title>
+            <path fill="none" stroke="#000" d="M1811.97-221.91c37.18 11.47 95.63 29.49 138.09 42.58"/>
+            <path stroke="#000" d="m1951.06-182.68 8.52 6.29-10.58.4z"/>
+        </g>
+        <g class="edge">
+            <title>:core:data-&gt;:core:common</title>
+            <path fill="none" stroke="#000" d="M1757.51-217.09c-25.04 20.58-71.97 55.84-118.51 73.09-105.54 39.11-236.5 49.9-317.67 52.58"/>
+            <path stroke="#000" d="m1321.83-87.93-10.1-3.21 9.89-3.79z"/>
+        </g>
+        <g class="node">
+            <title>:core:datastore</title>
+            <ellipse cx="1856" cy="-162" fill="none" stroke="#000" rx="65.17" ry="18"/>
+            <text xml:space="preserve" x="1856" y="-156.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:datastore</text>
+        </g>
+        <g class="edge">
+            <title>:core:data-&gt;:core:datastore</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M1794.15-217.12c10.22 8.94 23.17 20.27 34.58 30.26"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m1829.58-190.76 5.23 9.22-9.83-3.96z"/>
+        </g>
+        <g class="edge">
+            <title>:core:datastore-&gt;:core:common</title>
+            <path fill="none" stroke="red" stroke-width="2" d="M1807.28-149.62c-9.98 2.08-20.44 4.08-30.28 5.62-162.4 25.48-354.73 41.07-457.84 48.26"/>
+            <path fill="red" stroke="red" stroke-width="2" d="m1321.18-92.37-10.22-2.8 9.74-4.18z"/>
+        </g>
+        <g class="edge">
+            <title>:core:datastore-&gt;:core:model</title>
+            <path fill="none" stroke="#000" d="M1818.43-147.08c-18.17 8.59-38.75 21.4-51.43 39.08-12.54 17.49-17.11 41.55-18.65 60.25"/>
+            <path stroke="#000" d="m1751.85-47.67-4.04 9.8-2.95-10.18z"/>
+        </g>
+        <g class="node">
+            <title>:core:datastore-proto</title>
+            <ellipse cx="1864" cy="-90" fill="none" stroke="#000" rx="87.69" ry="18"/>
+            <text xml:space="preserve" x="1864" y="-84.95" font-family="Times,serif" font-size="14" text-anchor="middle">:core:datastore-proto</text>
+        </g>
+        <g class="edge">
+            <title>:core:datastore-&gt;:core:datastore-proto</title>
+            <path fill="none" stroke="#000" d="M1857.98-143.7c.83 7.29 1.82 15.97 2.76 24.16"/>
+            <path stroke="#000" d="m1864.22-119.94-2.35 10.33-4.61-9.54z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:home:ui-&gt;:core:ui</title>
+            <path fill="none" stroke="#000" d="M821.91-361.61c20.37 9.93 46.79 23.59 69.09 37.61 22.57 14.2 26.65 20.02 48 36 13.87 10.38 29.29 21.89 42.2 31.52"/>
+            <path stroke="#000" d="m982.96-259.53 5.93 8.79-10.11-3.18z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:home:ui-&gt;:core:domain</title>
+            <path fill="none" stroke="#000" d="M842.43-365.6c59.21 12.64 154.42 32.96 215.73 46.04"/>
+            <path stroke="#000" d="m1058.67-323.03 9.05 5.51-10.51 1.34z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:home:ui-&gt;:core:designsystem</title>
+            <path fill="none" stroke="#000" d="M735.26-365.61c-23.03 7.75-47.9 20.58-62.26 41.61-11.94 17.49-12.55 41.7-10.52 60.46"/>
+            <path stroke="#000" d="m665.91-264.29-2.07 10.39-4.86-9.41z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:home:ui-&gt;:core:common</title>
+            <path fill="none" stroke="#000" d="M742.5-363.79C664.48-339.37 520.98-283.47 577-216c74.61 89.87 433.4 115.5 592.16 122.5"/>
+            <path stroke="#000" d="m1168.88-97.02 9.84 3.93-10.14 3.07z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:main-menu:ui-&gt;:core:ui</title>
+            <path fill="none" stroke="#000" d="M293.84-363.36c79.98 18.58 229 52.18 357.16 75.36 110.33 19.95 240.74 37.78 310.01 46.79"/>
+            <path stroke="#000" d="m961.43-244.69 9.47 4.76-10.37 2.19z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:main-menu:ui-&gt;:core:domain</title>
+            <path fill="none" stroke="#000" d="M303.19-364.96c11.9 1.86 24.2 3.61 35.81 4.96 259.96 30.24 570.95 45.03 707.66 50.46"/>
+            <path stroke="#000" d="m1046.41-313.05 9.85 3.89-10.13 3.1z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:main-menu:ui-&gt;:core:designsystem</title>
+            <path fill="none" stroke="#000" d="M281.82-361.94c79.99 26.29 244.77 80.46 330.93 108.78"/>
+            <path stroke="#000" d="m613.77-256.51 8.41 6.45-10.59.2z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:main-menu:ui-&gt;:core:common</title>
+            <path fill="none" stroke="#000" d="M250.32-360.05C289.47-315.1 403.71-193.01 529-144c114.78 44.9 479.48 52.06 639.5 52.99"/>
+            <path stroke="#000" d="m1168.16-94.51 9.98 3.55-10.01 3.45z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:content:ui-&gt;:core:ui</title>
+            <path fill="none" stroke="#000" d="M677.94-365.49C741.81-352.53 837.61-332.23 853-324c20.52 10.97 18.65 23.08 38 36 24.14 16.12 53.99 29.4 77.75 38.63"/>
+            <path stroke="#000" d="m969.67-252.76 8.11 6.81-10.59-.27z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:content:ui-&gt;:core:domain</title>
+            <path fill="none" stroke="#000" d="M677.19-365.42c10.24 1.92 20.82 3.81 30.81 5.42 120.17 19.37 261.11 36.39 342.23 45.63"/>
+            <path stroke="#000" d="m1050.23-317.89 9.54 4.61-10.33 2.35z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:content:ui-&gt;:core:designsystem</title>
+            <path fill="none" stroke="#000" d="M620.92-359.75c1.43 18.31 5.04 47.86 14.08 71.75 3.4 8.98 8.4 18.09 13.48 26.17"/>
+            <path stroke="#000" d="m651.4-263.77 2.62 10.27-8.45-6.39z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:content:ui-&gt;:core:common</title>
+            <path fill="none" stroke="#000" d="M606.28-360.16c-7.66 10.03-16.91 23.28-23.28 36.16-14.89 30.11-17.83 38.81-23 72-8.73 56.05 16.92 83.34 68 108 93.44 45.12 396.74 52.33 540.32 53.15"/>
+            <path stroke="#000" d="m1168.13-94.35 9.98 3.54-10.02 3.46z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:restaurant:ui-&gt;:core:ui</title>
+            <path fill="none" stroke="#000" d="M490.52-363.51c112.88 27.92 370.34 91.61 474.5 117.38"/>
+            <path stroke="#000" d="m965.74-249.56 8.86 5.8-10.55 1z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:restaurant:ui-&gt;:core:domain</title>
+            <path fill="none" stroke="#000" d="M499.28-365.13c11.21 1.88 22.79 3.68 33.72 5.13 185.19 24.59 404.96 41.16 514.58 48.57"/>
+            <path stroke="#000" d="m1047.55-314.94 9.74 4.16-10.21 2.83z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:restaurant:ui-&gt;:core:designsystem</title>
+            <path fill="none" stroke="#000" d="M463.07-360.43c41.65 25.49 121.52 74.38 168.3 103.01"/>
+            <path stroke="#000" d="m633.11-260.46 6.7 8.21-10.35-2.24z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:restaurant:ui-&gt;:core:common</title>
+            <path fill="none" stroke="#000" d="M440.26-359.67C452.28-314.9 491.05-195.26 573-144c49.55 31 431.04 45.89 596.19 50.94"/>
+            <path stroke="#000" d="m1168.82-96.57 9.89 3.8-10.1 3.19z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:content:data-&gt;:core:ui</title>
+            <path fill="none" stroke="#000" d="M1622.02-364.03c-78 17.67-222.43 50.07-346.02 76.03-76.63 16.1-165.95 33.64-219.14 43.97"/>
+            <path stroke="#000" d="m1057.73-240.64-10.49-1.53 9.16-5.34z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:content:data-&gt;:core:domain</title>
+            <path fill="none" stroke="#000" d="M1606.68-367.78c-19.98 2.53-41.67 5.27-61.68 7.78-128.07 16.05-277.74 34.52-361.84 44.87"/>
+            <path stroke="#000" d="m1183.59-311.66-10.36-2.25 9.5-4.69z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:content:data-&gt;:core:designsystem</title>
+            <path fill="none" stroke="#000" d="M1608.15-367.29c-20.36 2.6-42.62 5.25-63.15 7.29-220.38 21.94-278.06 2.64-497 36-114.84 17.5-246.3 51.48-320.61 72.01"/>
+            <path stroke="#000" d="m728.44-248.65-10.57-.69 8.7-6.05z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:content:data-&gt;:core:network</title>
+            <path fill="none" stroke="#000" d="M1651.85-360.46c-13.63 9.36-29.6 22.07-40.85 36.46-32.35 41.38-25.05 60.75-48 108-4.16 8.56-8.91 17.76-13.31 26.06"/>
+            <path stroke="#000" d="m1552.9-188.53-7.81 7.16 1.64-10.47z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:content:data-&gt;:core:database</title>
+            <path fill="none" stroke="#000" d="M1726.71-362.6c55.97 18.66 149.35 55.49 214.29 110.6 20.35 17.27 37.17 42.7 48.14 61.96"/>
+            <path stroke="#000" d="m1992.14-191.84 1.74 10.45-7.88-7.08z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:content:data-&gt;:core:common</title>
+            <path fill="none" stroke="#000" d="M1679.33-359.66c-.18 43.77-7.23 159.25-73.33 215.66-41.69 35.58-191.95 47.27-284.96 51.12"/>
+            <path stroke="#000" d="m1321.35-89.39-10.13-3.11 9.86-3.89z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:restaurant:data-&gt;:core:ui</title>
+            <path fill="none" stroke="#000" d="M1826.03-362.76c-75.4 19.44-216.75 54.19-339.03 74.76-154.76 26.04-339.99 42.45-427.09 49.31"/>
+            <path stroke="#000" d="m1060.29-235.21-10.24-2.72 9.69-4.26z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:restaurant:data-&gt;:core:domain</title>
+            <path fill="none" stroke="#000" d="M1811.21-365.05c-12.05 1.86-24.48 3.63-36.21 5.05-213.55 25.85-467.67 42.28-588.08 49.21"/>
+            <path stroke="#000" d="m1187.39-307.31-10.18-2.92 9.78-4.07z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:restaurant:data-&gt;:core:designsystem</title>
+            <path fill="none" stroke="#000" d="M1810.02-365.28c-11.68 1.84-23.68 3.67-35.02 5.28-65.28 9.27-523.48 64.64-589 72-152.4 17.11-330.28 34.82-432.96 44.82"/>
+            <path stroke="#000" d="m753.62-239.72-10.29-2.52 9.61-4.45z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:restaurant:data-&gt;:core:network</title>
+            <path fill="none" stroke="#000" d="M1853.22-360.39c-61.72 38.29-213.93 132.7-283.05 175.58"/>
+            <path stroke="#000" d="m1572.22-181.97-10.34 2.3 6.65-8.25z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:restaurant:data-&gt;:core:database</title>
+            <path fill="none" stroke="#000" d="M1897.3-359.98c22.08 22.67 60.03 64.96 81.7 107.98 9.58 19.02 15.69 42.31 19.34 60.3"/>
+            <path stroke="#000" d="m2001.76-192.44-1.59 10.47-5.29-9.18z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:restaurant:data-&gt;:core:common</title>
+            <path fill="none" stroke="#000" d="M1875.69-359.74c-9.92 39.21-34.21 132.51-43.69 143.74-23.34 27.64-111.32 61.69-146 72-124.28 36.93-275.53 48.22-364.72 51.61"/>
+            <path stroke="#000" d="m1321.54-88.9-10.11-3.14 9.87-3.85z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:restaurant:data-&gt;:core:data</title>
+            <path fill="none" stroke="#000" d="M1865.7-360.09c-8.54 10.27-19.49 23.75-28.7 36.09-15.43 20.68-31.92 44.87-43.85 62.8"/>
+            <path stroke="#000" d="m1796.12-259.35-8.43 6.4 2.6-10.27z"/>
+        </g>
+        <g class="edge">
+            <title>:feature:restaurant:data-&gt;:core:datastore</title>
+            <path fill="none" stroke="#000" d="M1878.81-359.56c-2.12 29.6-6.98 91.51-13.81 143.56-1.05 7.99-2.41 16.62-3.76 24.54"/>
+            <path stroke="#000" d="m1864.69-190.87-5.18 9.24-1.72-10.45z"/>
+        </g>
+    </g>
+</svg>
