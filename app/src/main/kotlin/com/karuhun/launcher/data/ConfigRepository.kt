@@ -1,6 +1,9 @@
 package com.karuhun.launcher.data
 
 import android.content.Context
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import com.karuhun.launcher.model.Config
 
 class ConfigRepository(
     context: Context,
@@ -33,4 +36,9 @@ class ConfigRepository(
             }
         }
     }
+    suspend fun getBestConfig(): Pair<Config, String> = withContext(Dispatchers.IO) {
+        val (raw, source) = getBestConfigRawJson()
+        val config = ConfigJsonParser.parse(raw)
+        config to source
+}
 }
