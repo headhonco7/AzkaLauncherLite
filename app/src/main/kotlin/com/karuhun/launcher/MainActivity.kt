@@ -70,6 +70,7 @@ class MainActivity : ComponentActivity() {
     private var loadedWifiSsid by mutableStateOf("")
     private var loadedWhatsapp by mutableStateOf("")
     private var loadedRunningText by mutableStateOf("")
+    private var loadedWallpaperUrl by mutableStateOf("")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +82,7 @@ class MainActivity : ComponentActivity() {
                 val (cfg, source) = repo.getBestConfig()
 
                 loadedConfigJsonSource = source
+                loadedWallpaperUrl = cfg.branding.wallpaperUrl
                 loadedPropertyName = cfg.propertyName
                 loadedWifiSsid = cfg.wifi.ssid
                 loadedWhatsapp = cfg.whatsapp.number
@@ -111,6 +113,7 @@ class MainActivity : ComponentActivity() {
                         onAction = viewModel::onAction,
                         onMenuItemClick = {},
                         runningTextFromConfig = loadedRunningText,
+                        wallpaperUrlFromConfig = loadedWallpaperUrl,
                     )
                 } else {
                     OnboardingNavGraph(
@@ -134,12 +137,18 @@ fun LauncherApplication(
     onAction: (MainContract.UiAction) -> Unit,
     onMenuItemClick: (String) -> Unit,
     runningTextFromConfig: String,
+    wallpaperUrlFromConfig: String,
 ) {
     Box(modifier = modifier) {
 
         // Background Image (fallback: hitam kalau kosong)
+            val bg = if (wallpaperUrlFromConfig.isBlank()) {
+                uiState.hotelProfile?.backgroundPhoto
+            } else {
+                wallpaperUrlFromConfig
+            }
         AsyncImage(
-            model = uiState.hotelProfile?.backgroundPhoto,
+            model = bg,
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
