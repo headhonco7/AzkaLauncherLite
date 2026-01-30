@@ -1,11 +1,15 @@
 {
-  "propertyName": "Azka Guest House",
+  "propertyName": "De AZKA Guest House",
   "city": "Malang",
-  "wifi": { "ssid": "AZKA_GUEST", "password": "12345678" },
-  "whatsapp": { "number": "+62xxxxxxxxxx", "label": "Front Office" },
+  "wifi": { "ssid": "De AZKA WiFi", "password": "12345678" },
+  "whatsapp": { "number": "+62851 22000 590", "label": "Front Office" },
+  "branding": {
+  "wallpaperUrl": "https://....jpg",
+  "logoUrl": ""
+  }
   "text": {
     "welcomeHome": "Selamat beristirahat",
-    "runningText": "WiFi tersedia | Hubungi FO via WhatsApp"
+    "runningText": "Room Cleaning dilakukan by Request"
   },
   "ui": { "cardZoomEnabled": true, "qrEnabled": true }
 }
