@@ -23,8 +23,14 @@ jobs:
       - name: Build Debug APK
         run: ./gradlew :app:assembleDebug
 
+     - name: Find APK outputs
+        run: |
+          echo "Listing APK files..."
+          find . -type f -name "*.apk" -print
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug-apk
-          path: app/build/outputs/apk/debug/*.apk
+          name: apk-output
+          path: "**/*.apk"
+          if-no-files-found: error
