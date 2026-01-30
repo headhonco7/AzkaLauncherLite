@@ -28,9 +28,9 @@ jobs:
           echo "Listing APK files..."
           find . -type f -name "*.apk" -print
 
-      - name: Upload APK artifact
+      - name: Upload APK artifact (PROD)
         uses: actions/upload-artifact@v4
         with:
-          name: apk-output
-          path: "**/*.apk"
+          name: app-prod-debug-apk
+          path: app/build/outputs/apk/prod/debug/app-prod-debug.apk
           if-no-files-found: error
