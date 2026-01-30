@@ -64,6 +64,16 @@ import java.time.format.DateTimeFormatter
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+import android.util.Log
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import com.karuhun.launcher.data.ConfigRepository
+
+lifecycleScope.launch {
+    val repo = ConfigRepository(this@MainActivity)
+    val (cfg, source) = repo.getBestConfig()
+    Log.d("AZKA_CONFIG", "source=$source name=${cfg.propertyName} wifi=${cfg.wifi.ssid}")
+}
         setContent {
             AppTheme {
                 val viewModel = hiltViewModel<MainViewModel>()
