@@ -36,7 +36,7 @@ object ConfigJsonParser {
             ui = Ui(
                 cardZoomEnabled = uiObj.optBoolean("cardZoomEnabled", true),
                 qrEnabled = uiObj.optBoolean("qrEnabled", true)
-            )
+            ),
             branding = Branding(
                 wallpaperUrl = brandingObj.optString("wallpaperUrl", ""),
                 logoUrl = brandingObj.optString("logoUrl", "")
