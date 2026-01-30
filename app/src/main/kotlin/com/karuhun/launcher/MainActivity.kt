@@ -59,11 +59,17 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import androidx.compose.material.Text
+import androidx.compose.ui.Alignment
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+     private var loadedConfigJsonSource by mutableStateOf("loading")
+     private var loadedPropertyName by mutableStateOf("")
+     private var loadedWifiSsid by mutableStateOf("")
+     private var loadedWhatsapp by mutableStateOf("")   
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
@@ -72,6 +78,12 @@ import com.karuhun.launcher.data.ConfigRepository
 lifecycleScope.launch {
     val repo = ConfigRepository(this@MainActivity)
     val (cfg, source) = repo.getBestConfig()
+
+    loadedConfigJsonSource = source
+    loadedPropertyName = cfg.propertyName
+    loadedWifiSsid = cfg.wifi.ssid
+    loadedWhatsapp = cfg.whatsapp.number
+    
     Log.d("AZKA_CONFIG", "source=$source name=${cfg.propertyName} wifi=${cfg.wifi.ssid}")
 }
         setContent {
@@ -111,6 +123,9 @@ fun LauncherApplication(
     onAction: (MainContract.UiAction) -> Unit,
     onMenuItemClick: (String) -> Unit,
 ) {
+    androidx.compose.material.Text(
+    text = "CFG:$loadedConfigJsonSource | $loadedPropertyName | WiFi:$loadedWifiSsid | WA:$loadedWhatsapp"
+)
     Box(
         modifier = modifier,
     ) {
@@ -147,6 +162,17 @@ fun LauncherApplication(
                 }
             }
 
+            val name = if (loadedPropertyName.isBlank()) "Loading..." else loadedPropertyName
+            val wifi = if (loadedWifiSsid.isBlank()) "-" else loadedWifiSsid
+            val wa = if (loadedWhatsapp.isBlank()) "-" else loadedWhatsapp
+
+            Text(
+                text = "CFG:$loadedConfigJsonSource | $name | WiFi:$wifi | WA:$wa",
+                modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(8.dp)
+            )
+            
             TopBar(
                 modifier = Modifier
                     .height(80.dp),
