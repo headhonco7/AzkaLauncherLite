@@ -29,14 +29,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -69,16 +67,17 @@ import java.time.format.DateTimeFormatter
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    // Simple debug state (class-level, NOT inside onCreate)
+    // Config state (class-level)
     private var loadedConfigJsonSource by mutableStateOf("loading")
     private var loadedPropertyName by mutableStateOf("")
     private var loadedWifiSsid by mutableStateOf("")
     private var loadedWhatsapp by mutableStateOf("")
+    private var loadedRunningText by mutableStateOf("")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Load config in background (safe)
+        // Load config (remote -> cache fallback)
         lifecycleScope.launch {
             try {
                 val repo = ConfigRepository(this@MainActivity)
@@ -88,6 +87,7 @@ class MainActivity : ComponentActivity() {
                 loadedPropertyName = cfg.propertyName
                 loadedWifiSsid = cfg.wifi.ssid
                 loadedWhatsapp = cfg.whatsapp.number
+                loadedRunningText = cfg.text.runningText
 
                 Log.d(
                     "AZKA_CONFIG",
@@ -105,43 +105,22 @@ class MainActivity : ComponentActivity() {
                 val uiState by viewModel.uiState.collectAsStateWithLifecycle()
                 val navController = rememberNavController()
 
-                val debugText = run {
-                    val name = if (loadedPropertyName.isBlank()) "Loading..." else loadedPropertyName
-                    val wifi = if (loadedWifiSsid.isBlank()) "-" else loadedWifiSsid
-                    val wa = if (loadedWhatsapp.isBlank()) "-" else loadedWhatsapp
-                    "CFG:$loadedConfigJsonSource | $name | WiFi:$wifi | WA:$wa"
-                }
-
-                Box(modifier = Modifier.fillMaxSize()) {
-
-                    // --- app content (onboarding / home) ---
-                    if (uiState.isOnboardingCompleted) {
-                        LauncherApplication(
-                            modifier = Modifier.fillMaxSize(),
-                            appState = rememberAppState(navController = navController),
-                            uiState = uiState,
-                            uiEffect = viewModel.uiEffect,
-                            onAction = viewModel::onAction,
-                            onMenuItemClick = {},
-                            debugText = debugText,
-                        )
-                    } else {
-                        OnboardingNavGraph(
-                            navController = navController,
-                            onOnboardingComplete = {
-                                viewModel.onAction(MainContract.UiAction.OnboardingCompleted)
-                            }
-                        )
-                    }
-
-                    // --- ALWAYS visible overlay (even on onboarding) ---
-                    Text(
-                        text = debugText,
-                        modifier = Modifier
-                            .align(Alignment.TopStart)
-                            .padding(8.dp)
-                            .background(Color.Black.copy(alpha = 0.55f))
-                            .padding(6.dp)
+                if (uiState.isOnboardingCompleted) {
+                    LauncherApplication(
+                        modifier = Modifier.fillMaxSize(),
+                        appState = rememberAppState(navController = navController),
+                        uiState = uiState,
+                        uiEffect = viewModel.uiEffect,
+                        onAction = viewModel::onAction,
+                        onMenuItemClick = {},
+                        runningTextFromConfig = loadedRunningText,
+                    )
+                } else {
+                    OnboardingNavGraph(
+                        navController = navController,
+                        onOnboardingComplete = {
+                            viewModel.onAction(MainContract.UiAction.OnboardingCompleted)
+                        }
                     )
                 }
             }
@@ -157,11 +136,11 @@ fun LauncherApplication(
     uiEffect: Flow<MainContract.UiEffect>,
     onAction: (MainContract.UiAction) -> Unit,
     onMenuItemClick: (String) -> Unit,
-    debugText: String,
+    runningTextFromConfig: String,
 ) {
     Box(modifier = modifier) {
 
-        // Background Image
+        // Background Image (fallback: hitam kalau kosong)
         AsyncImage(
             model = uiState.hotelProfile?.backgroundPhoto,
             contentDescription = null,
@@ -176,9 +155,7 @@ fun LauncherApplication(
                 .background(Color.Black.copy(alpha = 0.5f)),
         )
 
-        Column(
-            modifier = Modifier.fillMaxSize()
-        ) {
+        Column(modifier = Modifier.fillMaxSize()) {
             val formatter = remember { DateTimeFormatter.ofPattern("dd MMMM yyyy") }
             var formattedDate by remember { mutableStateOf(LocalDate.now().format(formatter)) }
 
@@ -214,21 +191,19 @@ fun LauncherApplication(
 
             Spacer(modifier = Modifier.height(24.dp))
 
+            val running = if (runningTextFromConfig.isBlank()) {
+                uiState.hotelProfile?.runningText.orEmpty()
+            } else {
+                runningTextFromConfig
+            }
+
             RunningText(
                 modifier = Modifier
                     .padding(bottom = 4.dp)
                     .fillMaxWidth(),
-                text = uiState.hotelProfile?.runningText.orEmpty(),
+                text = running,
             )
         }
-
-        // Debug overlay (always visible for now)
-        Text(
-            text = debugText,
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .padding(8.dp)
-        )
     }
 }
 
@@ -237,14 +212,16 @@ fun LauncherApplication(
 fun LauncherApplicationPreview() {
     val navController = rememberNavController()
     val coroutineScope = CoroutineScope(Dispatchers.Main)
-    // NOTE: Preview dengan hiltViewModel kadang error di preview environment.
-    // Tapi kita biarkan sesuai struktur aslinya.
-    val viewModel = hiltViewModel<MainViewModel>()
+
+    // Preview environment sering tidak cocok untuk Hilt.
+    // Jadi kita buat dummy state seminimal mungkin.
+    val dummyViewModel = hiltViewModel<MainViewModel>()
     val appState = LauncherAppState(
         navController = navController,
         coroutineScope = coroutineScope,
-        viewModel = viewModel,
+        viewModel = dummyViewModel,
     )
+
     LauncherApplication(
         modifier = Modifier.fillMaxSize(),
         appState = appState,
@@ -252,6 +229,6 @@ fun LauncherApplicationPreview() {
         uiState = MainContract.UiState(isOnboardingCompleted = true),
         uiEffect = emptyFlow(),
         onAction = {},
-        debugText = "CFG:preview | Azka Guest House | WiFi:AZKA_GUEST | WA:+62xxxx",
+        runningTextFromConfig = "Room Cleaning dilakukan by Request. Silahkan hubungi Front Office bila membutuhkan bantuan/ room cleaning",
     )
 }
