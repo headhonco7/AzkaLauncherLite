@@ -55,11 +55,8 @@ import com.karuhun.launcher.data.ConfigRepository
 import com.karuhun.navigation.MainAppNavGraph
 import com.karuhun.navigation.OnboardingNavGraph
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -210,25 +207,13 @@ fun LauncherApplication(
 @Composable
 @Preview(device = Devices.TV_1080p)
 fun LauncherApplicationPreview() {
-    val navController = rememberNavController()
-    val coroutineScope = CoroutineScope(Dispatchers.Main)
-
-    // Preview environment sering tidak cocok untuk Hilt.
-    // Jadi kita buat dummy state seminimal mungkin.
-    val dummyViewModel = hiltViewModel<MainViewModel>()
-    val appState = LauncherAppState(
-        navController = navController,
-        coroutineScope = coroutineScope,
-        viewModel = dummyViewModel,
-    )
-
-    LauncherApplication(
-        modifier = Modifier.fillMaxSize(),
-        appState = appState,
-        onMenuItemClick = {},
-        uiState = MainContract.UiState(isOnboardingCompleted = true),
-        uiEffect = emptyFlow(),
-        onAction = {},
-        runningTextFromConfig = "Room Cleaning dilakukan by Request. Silahkan hubungi Front Office bila membutuhkan bantuan/ room cleaning",
-    )
+    // Preview: jangan pakai hiltViewModel(), cukup render layout dasar saja.
+    // Karena LauncherApplication butuh LauncherAppState, kita cukup skip preview kompleks.
+    AppTheme {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black)
+        )
+    }
 }
