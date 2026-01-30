@@ -1,0 +1,11 @@
+{
+  "propertyName": "Azka Guest House",
+  "city": "Malang",
+  "wifi": { "ssid": "AZKA_GUEST", "password": "12345678" },
+  "whatsapp": { "number": "+62xxxxxxxxxx", "label": "Front Office" },
+  "text": {
+    "welcomeHome": "Selamat beristirahat",
+    "runningText": "WiFi tersedia | Hubungi FO via WhatsApp"
+  },
+  "ui": { "cardZoomEnabled": true, "qrEnabled": true }
+}
