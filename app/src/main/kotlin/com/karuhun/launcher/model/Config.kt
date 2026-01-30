@@ -6,7 +6,7 @@ data class Config(
     val wifi: Wifi = Wifi(),
     val whatsapp: Whatsapp = Whatsapp(),
     val text: Text = Text(),
-    val ui: Ui = Ui()
+    val ui: Ui = Ui(),
     val branding: Branding = Branding()
 )
 data class Branding(
