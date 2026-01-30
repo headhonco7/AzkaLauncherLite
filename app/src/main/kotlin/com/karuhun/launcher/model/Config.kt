@@ -1,4 +1,4 @@
-package com.karuhun.launcher
+package com.karuhun.launcher.model
 
 data class Config(
     val propertyName: String = "",
