@@ -19,10 +19,6 @@ object ConfigJsonParser {
         val uiObj = root.optJSONObject("ui") ?: JSONObject()
 
         return Config(
-            branding = Branding(
-                wallpaperUrl = brandingObj.optString("wallpaperUrl", ""),
-                logoUrl = brandingObj.optString("logoUrl", "")
-            )
             propertyName = root.optString("propertyName", ""),
             city = root.optString("city", ""),
             wifi = Wifi(
@@ -40,6 +36,10 @@ object ConfigJsonParser {
             ui = Ui(
                 cardZoomEnabled = uiObj.optBoolean("cardZoomEnabled", true),
                 qrEnabled = uiObj.optBoolean("qrEnabled", true)
+            )
+            branding = Branding(
+                wallpaperUrl = brandingObj.optString("wallpaperUrl", ""),
+                logoUrl = brandingObj.optString("logoUrl", "")
             )
         )
     }
