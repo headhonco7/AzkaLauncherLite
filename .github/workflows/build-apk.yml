@@ -23,7 +23,7 @@ jobs:
       - name: Build Debug APK
         run: ./gradlew :app:assembleDebug
 
-     - name: Find APK outputs
+      - name: Find APK outputs
         run: |
           echo "Listing APK files..."
           find . -type f -name "*.apk" -print
