@@ -7,8 +7,12 @@ data class Config(
     val whatsapp: Whatsapp = Whatsapp(),
     val text: Text = Text(),
     val ui: Ui = Ui()
+    val branding: Branding = Branding()
 )
-
+data class Branding(
+    val wallpaperUrl: String = "",
+    val logoUrl: String = ""
+)
 data class Wifi(val ssid: String = "", val password: String = "")
 data class Whatsapp(val number: String = "", val label: String = "")
 data class Text(val welcomeHome: String = "", val runningText: String = "")
