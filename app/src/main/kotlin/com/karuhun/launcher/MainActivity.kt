@@ -112,22 +112,36 @@ class MainActivity : ComponentActivity() {
                     "CFG:$loadedConfigJsonSource | $name | WiFi:$wifi | WA:$wa"
                 }
 
-                if (uiState.isOnboardingCompleted) {
-                    LauncherApplication(
-                        modifier = Modifier.fillMaxSize(),
-                        appState = rememberAppState(navController = navController),
-                        uiState = uiState,
-                        uiEffect = viewModel.uiEffect,
-                        onAction = viewModel::onAction,
-                        onMenuItemClick = {},
-                        debugText = debugText,
-                    )
-                } else {
-                    OnboardingNavGraph(
-                        navController = navController,
-                        onOnboardingComplete = {
-                            viewModel.onAction(MainContract.UiAction.OnboardingCompleted)
-                        }
+                Box(modifier = Modifier.fillMaxSize()) {
+
+                    // --- app content (onboarding / home) ---
+                    if (uiState.isOnboardingCompleted) {
+                        LauncherApplication(
+                            modifier = Modifier.fillMaxSize(),
+                            appState = rememberAppState(navController = navController),
+                            uiState = uiState,
+                            uiEffect = viewModel.uiEffect,
+                            onAction = viewModel::onAction,
+                            onMenuItemClick = {},
+                            debugText = debugText,
+                        )
+                    } else {
+                        OnboardingNavGraph(
+                            navController = navController,
+                            onOnboardingComplete = {
+                                viewModel.onAction(MainContract.UiAction.OnboardingCompleted)
+                            }
+                        )
+                    }
+
+                    // --- ALWAYS visible overlay (even on onboarding) ---
+                    Text(
+                        text = debugText,
+                        modifier = Modifier
+                            .align(Alignment.TopStart)
+                            .padding(8.dp)
+                            .background(Color.Black.copy(alpha = 0.55f))
+                            .padding(6.dp)
                     )
                 }
             }
