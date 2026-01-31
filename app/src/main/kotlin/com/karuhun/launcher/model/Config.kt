@@ -7,7 +7,7 @@ data class Config(
     val whatsapp: Whatsapp = Whatsapp(),
     val text: Text = Text(),
     val ui: Ui = Ui(),
-    val branding: Branding = Branding()
+    val branding: Branding? = null
 )
 data class Branding(
     val wallpaperUrl: String? = null,
