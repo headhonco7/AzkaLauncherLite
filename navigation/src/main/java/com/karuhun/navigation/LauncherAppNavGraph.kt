@@ -21,10 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.karuhun.feature.home.ui.navigation.Home
-import com.karuhun.feature.itemlist.ui.navigation.contentScreen
 import com.karuhun.feature.home.ui.navigation.homeScreen
 import com.karuhun.feature.itemlist.ui.navigation.ContentDetail
 import com.karuhun.feature.itemlist.ui.navigation.ContentItems
+import com.karuhun.feature.itemlist.ui.navigation.contentScreen
 import com.karuhun.feature.mainmenu.ui.navigation.MainMenu
 import com.karuhun.feature.mainmenu.ui.navigation.mainMenuScreen
 import com.karuhun.feature.restaurant.ui.navigation.RestaurantCategory
@@ -34,6 +34,10 @@ import com.karuhun.feature.restaurant.ui.navigation.restaurantGraph
 fun MainAppNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController,
+
+    // ✅ v1.1: data WiFi dari config (default kosong biar tidak merusak pemanggil lama)
+    wifiSsid: String = "",
+    wifiPassword: String = "",
 ) {
     NavHost(
         modifier = modifier,
@@ -42,12 +46,17 @@ fun MainAppNavGraph(
     ) {
         homeScreen(
             onMenuItemClick = { menuItem ->
-
+                // no-op for now
             },
             onGoToMainMenu = {
                 navController.navigate(MainMenu)
             },
+
+            // pass ke HomeScreen
+            wifiSsid = wifiSsid,
+            wifiPassword = wifiPassword,
         )
+
         mainMenuScreen(
             onNavigateToContentItems = { content ->
                 navController.navigate(
@@ -62,6 +71,7 @@ fun MainAppNavGraph(
                 navController.navigate(RestaurantCategory)
             },
         )
+
         contentScreen(
             onNavigateToDetail = {
                 navController.navigate(
@@ -74,6 +84,7 @@ fun MainAppNavGraph(
                 )
             },
         )
+
         restaurantGraph()
     }
 }
