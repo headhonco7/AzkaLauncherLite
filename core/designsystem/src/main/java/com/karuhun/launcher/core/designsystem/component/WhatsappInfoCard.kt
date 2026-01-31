@@ -2,6 +2,7 @@ package com.karuhun.launcher.core.designsystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,7 +19,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import androidx.tv.material3.Surface
 import androidx.tv.material3.Text
 import com.karuhun.launcher.core.designsystem.theme.AppTheme
 
@@ -32,41 +32,32 @@ fun WhatsappInfoCard(
 ) {
     val shape = RoundedCornerShape(18.dp)
 
-    Surface(
-        onClick = onClick,
-        shape = shape,
+    Column(
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
             .widthIn(min = 420.dp, max = 720.dp)
             .clip(shape)
             .background(Color.Black.copy(alpha = 0.35f))
-            .border(
-                width = 1.dp,
-                color = Color.White.copy(alpha = 0.20f),
-                shape = shape
-            )
-            .padding(16.dp),
-        contentColor = Color.White
+            .border(1.dp, Color.White.copy(alpha = 0.20f), shape)
+            .clickable { onClick() }
+            .padding(16.dp)
+            .fillMaxWidth()
     ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                text = if (label.isBlank()) "WhatsApp" else label,
-                fontSize = 20.sp,
-                color = Color.White
-            )
-            Text(
-                text = if (number.isBlank()) "Nomor belum diisi" else number,
-                fontSize = 18.sp,
-                color = Color.White.copy(alpha = 0.95f)
-            )
-            Text(
-                text = "Tekan OK untuk lihat detail",
-                fontSize = 14.sp,
-                color = Color.White.copy(alpha = 0.75f)
-            )
-        }
+        Text(
+            text = if (label.isBlank()) "WhatsApp" else label,
+            fontSize = 20.sp,
+            color = Color.White
+        )
+        Text(
+            text = if (number.isBlank()) "Nomor belum diisi" else number,
+            fontSize = 18.sp,
+            color = Color.White.copy(alpha = 0.95f)
+        )
+        Text(
+            text = "Tekan OK untuk lihat detail",
+            fontSize = 14.sp,
+            color = Color.White.copy(alpha = 0.75f)
+        )
     }
 }
 
