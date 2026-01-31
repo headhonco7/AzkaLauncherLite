@@ -68,6 +68,7 @@ class MainActivity : ComponentActivity() {
     private var loadedConfigJsonSource by mutableStateOf("loading")
     private var loadedPropertyName by mutableStateOf("")
     private var loadedWifiSsid by mutableStateOf("")
+    private var loadedWifiPassword by mutableStateOf("") // ✅ NEW
     private var loadedWhatsapp by mutableStateOf("")
     private var loadedRunningText by mutableStateOf("")
     private var loadedWallpaperUrl by mutableStateOf("")
@@ -86,6 +87,7 @@ class MainActivity : ComponentActivity() {
                 loadedWallpaperUrl = cfg.branding.wallpaperUrl
                 loadedPropertyName = cfg.propertyName
                 loadedWifiSsid = cfg.wifi.ssid
+                loadedWifiPassword = cfg.wifi.password // ✅ NEW
                 loadedWhatsapp = cfg.whatsapp.number
                 loadedRunningText = cfg.text.runningText
                 loadedLogoUrl = cfg.branding.logoUrl
@@ -118,6 +120,10 @@ class MainActivity : ComponentActivity() {
                         wallpaperUrlFromConfig = loadedWallpaperUrl,
                         logoUrlFromConfig = loadedLogoUrl,
                         propertyNameFromConfig = loadedPropertyName,
+
+                        // ✅ pass WiFi config down
+                        wifiSsidFromConfig = loadedWifiSsid,
+                        wifiPasswordFromConfig = loadedWifiPassword,
                     )
                 } else {
                     OnboardingNavGraph(
@@ -144,6 +150,10 @@ fun LauncherApplication(
     wallpaperUrlFromConfig: String,
     logoUrlFromConfig: String,
     propertyNameFromConfig: String,
+
+    // ✅ v1.1: WiFi for Home overlay
+    wifiSsidFromConfig: String,
+    wifiPasswordFromConfig: String,
 ) {
     Box(modifier = modifier) {
 
@@ -183,7 +193,7 @@ fun LauncherApplication(
                 }
             }
 
-            // Property name badge (UI render must be OUTSIDE LaunchedEffect)
+            // Property name badge
             val propName = propertyNameFromConfig.trim()
             if (propName.isNotBlank()) {
                 androidx.compose.material3.Text(
@@ -217,9 +227,12 @@ fun LauncherApplication(
                     .weight(1f)
                     .padding(bottom = 0.dp),
             ) {
+                // ✅ Pass WiFi data into nav graph -> homeScreen -> HomeScreen -> WifiInfoCard/Overlay
                 MainAppNavGraph(
                     modifier = Modifier.fillMaxSize(),
                     navController = appState.navController,
+                    wifiSsid = wifiSsidFromConfig,
+                    wifiPassword = wifiPasswordFromConfig,
                 )
             }
 
