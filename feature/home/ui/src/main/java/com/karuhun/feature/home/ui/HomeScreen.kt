@@ -59,6 +59,7 @@ import com.karuhun.launcher.core.designsystem.component.InstagramFSvgrepoCom
 import com.karuhun.launcher.core.designsystem.component.LauncherCard
 import com.karuhun.launcher.core.designsystem.component.MenuItemCard
 import com.karuhun.launcher.core.designsystem.component.WifiInfoCard
+import com.karuhun.launcher.core.designsystem.component.WhatsappInfoCard
 import com.karuhun.launcher.core.designsystem.component.ZoomOverlay
 import com.karuhun.launcher.core.designsystem.icon.MoreSvgrepoCom
 import com.karuhun.launcher.core.designsystem.theme.AppTheme
@@ -77,9 +78,14 @@ internal fun HomeScreen(
     // ✅ v1.1: data WiFi dari config (default kosong biar tidak merusak pemanggil lama)
     wifiSsid: String = "",
     wifiPassword: String = "",
+
+    // ✅ v1.1: data WhatsApp dari config (default kosong biar tidak merusak pemanggil lama)
+    whatsappNumber: String = "",
+    whatsappLabel: String = "",
 ) {
     // Overlay state (local UI state)
     var showWifiOverlay by remember { mutableStateOf(false) }
+    var showWhatsappOverlay by remember { mutableStateOf(false) }
 
     uiEffect.collectWithLifecycle { effect ->
         when (effect) {
@@ -89,13 +95,12 @@ internal fun HomeScreen(
         }
     }
 
-    // ✅ Overlay ditempatkan di level paling atas agar menutup seluruh Home
+    // ✅ Overlay WiFi (fullscreen)
     ZoomOverlay(
         visible = showWifiOverlay,
         title = "WiFi",
         onDismiss = { showWifiOverlay = false }
     ) {
-        // Isi overlay WiFi (tanpa QR dulu, sesuai target v1.1 step awal)
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Text(
                 text = "SSID",
@@ -123,6 +128,39 @@ internal fun HomeScreen(
         }
     }
 
+    // ✅ Overlay WhatsApp (fullscreen)
+    ZoomOverlay(
+        visible = showWhatsappOverlay,
+        title = if (whatsappLabel.isBlank()) "WhatsApp" else whatsappLabel,
+        onDismiss = { showWhatsappOverlay = false }
+    ) {
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Text(
+                text = "WhatsApp",
+                fontSize = 16.sp,
+                color = Color.White.copy(alpha = 0.80f)
+            )
+            Text(
+                text = if (whatsappNumber.isBlank()) "Belum diisi" else whatsappNumber,
+                fontSize = 22.sp,
+                color = Color.White
+            )
+
+            Spacer(modifier = Modifier.height(6.dp))
+
+            Text(
+                text = "Catatan",
+                fontSize = 16.sp,
+                color = Color.White.copy(alpha = 0.80f)
+            )
+            Text(
+                text = "Silakan chat untuk bantuan",
+                fontSize = 18.sp,
+                color = Color.White
+            )
+        }
+    }
+
     Row(modifier = modifier) {
         LeftContent(
             modifier = Modifier
@@ -131,13 +169,12 @@ internal fun HomeScreen(
                 .padding(start = 16.dp),
             guestName = uiState.roomDetail?.guestName.orEmpty(),
 
-            // ✅ tambahkan WiFi card di area kiri (HOME)
             wifiSsid = wifiSsid,
-            onWifiClick = {
-                // hanya buka overlay jika cardZoomEnabled nanti sudah dipakai;
-                // untuk sekarang langsung buka (v1.1 step awal)
-                showWifiOverlay = true
-            }
+            onWifiClick = { showWifiOverlay = true },
+
+            whatsappNumber = whatsappNumber,
+            whatsappLabel = whatsappLabel,
+            onWhatsappClick = { showWhatsappOverlay = true },
         )
         RightContent(
             modifier = Modifier
@@ -155,9 +192,14 @@ fun LeftContent(
     modifier: Modifier = Modifier,
     guestName: String,
 
-    // ✅ tambahan untuk WiFi
+    // ✅ WiFi
     wifiSsid: String,
     onWifiClick: () -> Unit,
+
+    // ✅ WhatsApp
+    whatsappNumber: String,
+    whatsappLabel: String,
+    onWhatsappClick: () -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -220,11 +262,20 @@ fun LeftContent(
             )
         }
 
-        // ✅ WiFi card di HOME (kiri bawah)
+        // ✅ WiFi card
         Spacer(modifier = Modifier.height(18.dp))
         WifiInfoCard(
             ssid = wifiSsid,
             onClick = onWifiClick,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        // ✅ WhatsApp card
+        Spacer(modifier = Modifier.height(12.dp))
+        WhatsappInfoCard(
+            number = whatsappNumber,
+            label = whatsappLabel,
+            onClick = onWhatsappClick,
             modifier = Modifier.fillMaxWidth()
         )
     }
@@ -300,8 +351,12 @@ private fun HomeScreenPreview() {
             uiAction = {},
             uiEffect = emptyFlow(),
             onGoToMainMenu = {},
+
             wifiSsid = "De AZKA WiFi",
             wifiPassword = "12345678",
+
+            whatsappNumber = "+62 851 22000 590",
+            whatsappLabel = "Front Office",
         )
     }
 }
