@@ -35,9 +35,13 @@ fun MainAppNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController,
 
-    // ✅ v1.1: data WiFi dari config (default kosong biar tidak merusak pemanggil lama)
+    // ✅ v1.1: data WiFi dari config
     wifiSsid: String = "",
     wifiPassword: String = "",
+
+    // ✅ v1.1: data WhatsApp dari config
+    whatsappNumber: String = "",
+    whatsappLabel: String = "",
 ) {
     NavHost(
         modifier = modifier,
@@ -55,6 +59,10 @@ fun MainAppNavGraph(
             // pass ke HomeScreen
             wifiSsid = wifiSsid,
             wifiPassword = wifiPassword,
+
+            // pass WhatsApp
+            whatsappNumber = whatsappNumber,
+            whatsappLabel = whatsappLabel,
         )
 
         mainMenuScreen(
