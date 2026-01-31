@@ -60,6 +60,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import androidx.compose.material3.Text
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -71,6 +72,7 @@ class MainActivity : ComponentActivity() {
     private var loadedWhatsapp by mutableStateOf("")
     private var loadedRunningText by mutableStateOf("")
     private var loadedWallpaperUrl by mutableStateOf("")
+    private var loadedLogoUrl by mutableStateOf("")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,6 +89,7 @@ class MainActivity : ComponentActivity() {
                 loadedWifiSsid = cfg.wifi.ssid
                 loadedWhatsapp = cfg.whatsapp.number
                 loadedRunningText = cfg.text.runningText
+                loadedLogoUrl = cfg.branding.logoUrl
 
                 Log.d(
                     "AZKA_CONFIG",
@@ -114,6 +117,8 @@ class MainActivity : ComponentActivity() {
                         onMenuItemClick = {},
                         runningTextFromConfig = loadedRunningText,
                         wallpaperUrlFromConfig = loadedWallpaperUrl,
+                        logoUrlFromConfig = loadedLogoUrl,
+                        propertyNameFromConfig = loadedPropertyName,
                     )
                 } else {
                     OnboardingNavGraph(
@@ -138,17 +143,19 @@ fun LauncherApplication(
     onMenuItemClick: (String) -> Unit,
     runningTextFromConfig: String,
     wallpaperUrlFromConfig: String,
+    logoUrlFromConfig: String,
+    propertyNameFromConfig: String,
 ) {
     Box(modifier = modifier) {
 
         // Background Image (fallback: hitam kalau kosong)
-            val bg = if (wallpaperUrlFromConfig.isBlank()) {
+            val bgModel: Any? = if (wallpaperUrlFromConfig.isBlank()) {
                 uiState.hotelProfile?.backgroundPhoto
             } else {
                 wallpaperUrlFromConfig
             }
         AsyncImage(
-            model = bg,
+            model = bgModel,
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
@@ -173,14 +180,29 @@ fun LauncherApplication(
                     }
                     delay(1000L)
                 }
+            val propName = propertyNameFromConfig.ifBlank { "" }
+            if (propName.isNotBlank()) {
+                androidx.compose.material3.Text(
+                    text = propName,
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .background(Color.Black.copy(alpha = 0.55f))
+                        .padding(horizontal = 10.dp, vertical = 6.dp),
+                    color = Color.White
+                )
+            }    
             }
-
+            val logo = if (logoUrlFromConfig.isBlank()) {
+                uiState.hotelProfile?.logoWhite.orEmpty()
+            } else {
+                logoUrlFromConfig
+            }
             TopBar(
                 modifier = Modifier.height(80.dp),
                 roomNumber = DeviceUtil.getDeviceName(LocalContext.current),
                 date = formattedDate,
                 temperature = "${uiState.weather?.temp?.toInt()}°C",
-                imageUrl = uiState.hotelProfile?.logoWhite.orEmpty(),
+                imageUrl = logo,
                 weatherText = uiState.weather?.icon.orEmpty()
             )
 
