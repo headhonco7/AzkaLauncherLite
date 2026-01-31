@@ -81,7 +81,7 @@ internal fun HomeScreen(
     wifiSsid: String = "",
     wifiPassword: String = "",
 
-    // WhatsApp
+    // WhatsApp (DISPLAY untuk tamu: boleh 081..., boleh +62..., dll)
     whatsappNumber: String = "",
     whatsappLabel: String = "",
 ) {
@@ -141,15 +141,17 @@ internal fun HomeScreen(
                 fontSize = 16.sp,
                 color = Color.White.copy(alpha = 0.80f)
             )
+
+            // ✅ Ini yang ditampilkan ke tamu: biarkan apa adanya (contoh 081....)
             Text(
                 text = if (whatsappNumber.isBlank()) "Belum diisi" else whatsappNumber,
                 fontSize = 22.sp,
                 color = Color.White
             )
 
-            // QR hanya muncul kalau nomor ada
-            if (whatsappNumber.isNotBlank()) {
-                val waLink = buildWaLink(whatsappNumber)
+            // ✅ QR hanya muncul kalau link wa.me valid
+            val waLink = buildWaLinkFromDisplayNumber(whatsappNumber)
+            if (waLink.isNotBlank()) {
                 val qrUrl = buildQrUrl(waLink)
 
                 Text(
@@ -172,7 +174,7 @@ internal fun HomeScreen(
                 )
             } else {
                 Text(
-                    text = "QR tidak tersedia (nomor kosong)",
+                    text = "QR tidak tersedia (nomor tidak valid)",
                     fontSize = 16.sp,
                     color = Color.White.copy(alpha = 0.80f)
                 )
@@ -367,28 +369,36 @@ private fun HomeScreenPreview() {
             wifiSsid = "De AZKA WiFi",
             wifiPassword = "12345678",
 
-            whatsappNumber = "+6285122000590",
+            // contoh display lokal
+            whatsappNumber = "0812 3456 7890",
             whatsappLabel = "Front Office",
         )
     }
 }
 
 /**
- * Normalisasi nomor WA untuk wa.me:
- * - hapus spasi & tanda selain angka
- * - hapus '+' jika ada
+ * Convert nomor WA DISPLAY (mis: "081...", "+62...", "62...", "8...")
+ * menjadi format internasional untuk wa.me: "628..."
  */
-private fun normalizeWaNumber(input: String): String {
-    val digitsOnly = input.filter { it.isDigit() }
-    return digitsOnly
+private fun toWaMeNumberFromDisplay(input: String): String {
+    val digits = input.filter { it.isDigit() }
+    if (digits.isBlank()) return ""
+
+    return when {
+        digits.startsWith("62") -> digits
+        digits.startsWith("0") -> "62" + digits.drop(1)
+        digits.startsWith("8") -> "62$digits"
+        else -> "" // kalau format aneh, lebih aman kosong (QR disembunyikan)
+    }
 }
 
 /**
- * Link wa.me yang simpel & universal.
+ * Build wa.me link dari nomor display.
+ * Jika nomor tidak bisa dinormalisasi, return "" (biar QR tidak tampil).
  */
-private fun buildWaLink(number: String): String {
-    val n = normalizeWaNumber(number)
-    return "https://wa.me/$n"
+private fun buildWaLinkFromDisplayNumber(displayNumber: String): String {
+    val waMe = toWaMeNumberFromDisplay(displayNumber)
+    return if (waMe.isBlank()) "" else "https://wa.me/$waMe"
 }
 
 /**
@@ -397,6 +407,5 @@ private fun buildWaLink(number: String): String {
  */
 private fun buildQrUrl(data: String): String {
     val encoded = URLEncoder.encode(data, "UTF-8")
-    // Layanan QR publik (cukup stabil untuk kebutuhan guest house)
     return "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=$encoded"
 }
