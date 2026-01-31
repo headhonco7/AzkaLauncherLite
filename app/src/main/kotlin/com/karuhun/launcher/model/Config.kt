@@ -20,15 +20,17 @@ data class Wifi(
 
 data class Whatsapp(
     val number: String = "",
-    val message: String = ""
+    val label: String = ""   // sinkron dengan parser
 )
 
 data class Text(
+    val welcomeHome: String = "",  // disiapkan walau belum dipakai
     val runningText: String = ""
 )
 
 data class Ui(
-    val theme: String = "" // disiapkan, belum dipakai
+    val cardZoomEnabled: Boolean = true,
+    val qrEnabled: Boolean = true
 )
 
 data class Branding(
