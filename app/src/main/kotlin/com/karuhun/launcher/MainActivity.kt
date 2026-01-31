@@ -60,7 +60,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import androidx.compose.material3.Text
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -148,12 +147,13 @@ fun LauncherApplication(
 ) {
     Box(modifier = modifier) {
 
-        // Background Image (fallback: hitam kalau kosong)
-            val bgModel: Any? = if (wallpaperUrlFromConfig.isBlank()) {
-                uiState.hotelProfile?.backgroundPhoto
-            } else {
-                wallpaperUrlFromConfig
-            }
+        // Background Image (fallback: hotelProfile background kalau wallpaperUrl kosong)
+        val bgModel: Any? = if (wallpaperUrlFromConfig.isBlank()) {
+            uiState.hotelProfile?.backgroundPhoto
+        } else {
+            wallpaperUrlFromConfig
+        }
+
         AsyncImage(
             model = bgModel,
             contentDescription = null,
@@ -172,6 +172,7 @@ fun LauncherApplication(
             val formatter = remember { DateTimeFormatter.ofPattern("dd MMMM yyyy") }
             var formattedDate by remember { mutableStateOf(LocalDate.now().format(formatter)) }
 
+            // Update date periodically (safe, side-effect only)
             LaunchedEffect(Unit) {
                 while (true) {
                     val newFormattedDate = LocalDate.now().format(formatter)
@@ -180,7 +181,10 @@ fun LauncherApplication(
                     }
                     delay(1000L)
                 }
-            val propName = propertyNameFromConfig.ifBlank { "" }
+            }
+
+            // Property name badge (UI render must be OUTSIDE LaunchedEffect)
+            val propName = propertyNameFromConfig.trim()
             if (propName.isNotBlank()) {
                 androidx.compose.material3.Text(
                     text = propName,
@@ -190,13 +194,15 @@ fun LauncherApplication(
                         .padding(horizontal = 10.dp, vertical = 6.dp),
                     color = Color.White
                 )
-            }    
             }
+
+            // Logo fallback: config logoUrl > hotelProfile.logoWhite
             val logo = if (logoUrlFromConfig.isBlank()) {
                 uiState.hotelProfile?.logoWhite.orEmpty()
             } else {
                 logoUrlFromConfig
             }
+
             TopBar(
                 modifier = Modifier.height(80.dp),
                 roomNumber = DeviceUtil.getDeviceName(LocalContext.current),
@@ -238,8 +244,6 @@ fun LauncherApplication(
 @Composable
 @Preview(device = Devices.TV_1080p)
 fun LauncherApplicationPreview() {
-    // Preview: jangan pakai hiltViewModel(), cukup render layout dasar saja.
-    // Karena LauncherApplication butuh LauncherAppState, kita cukup skip preview kompleks.
     AppTheme {
         Box(
             modifier = Modifier
