@@ -5,7 +5,7 @@
   "whatsapp": { "number": "+62851 22000 590", "label": "Front Office" },
   "branding": {
   "wallpaperUrl": "https://headhonco7.github.io/azka-launcher-config/assets/wallpaper.jpg",
-  "logoUrl": ""
+  "logoUrl": "https://headhonco7.github.io/azka-launcher-config/assets/logo.png"
   }
   "text": {
     "welcomeHome": "Selamat beristirahat",
