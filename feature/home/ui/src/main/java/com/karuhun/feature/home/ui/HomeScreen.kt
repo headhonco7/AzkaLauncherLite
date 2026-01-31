@@ -81,7 +81,7 @@ internal fun HomeScreen(
     wifiSsid: String = "",
     wifiPassword: String = "",
 
-    // WhatsApp (DISPLAY untuk tamu: boleh 081..., boleh +62..., dll)
+    // WhatsApp (DISPLAY untuk tamu)
     whatsappNumber: String = "",
     whatsappLabel: String = "",
 ) {
@@ -96,13 +96,15 @@ internal fun HomeScreen(
         }
     }
 
-    // Overlay WiFi
+    // =========================
+    // Overlay WiFi + QR
+    // =========================
     ZoomOverlay(
         visible = showWifiOverlay,
         title = "WiFi",
         onDismiss = { showWifiOverlay = false }
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(
                 text = "SSID",
                 fontSize = 16.sp,
@@ -114,7 +116,7 @@ internal fun HomeScreen(
                 color = Color.White
             )
 
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(2.dp))
 
             Text(
                 text = "Password",
@@ -126,10 +128,43 @@ internal fun HomeScreen(
                 fontSize = 22.sp,
                 color = Color.White
             )
+
+            // ✅ QR WiFi hanya tampil kalau SSID + password ada
+            if (wifiSsid.isNotBlank() && wifiPassword.isNotBlank()) {
+                val payload = buildWifiQrPayload(
+                    ssid = wifiSsid,
+                    password = wifiPassword,
+                    // Default paling umum: WPA (bisa kamu ubah nanti jika perlu)
+                    security = "WPA",
+                    hidden = false
+                )
+                val qrUrl = buildQrUrl(payload)
+
+                Text(
+                    text = "Scan QR untuk konek WiFi",
+                    fontSize = 16.sp,
+                    color = Color.White.copy(alpha = 0.80f)
+                )
+
+                AsyncImage(
+                    model = qrUrl,
+                    contentDescription = "WiFi QR",
+                    modifier = Modifier.size(280.dp),
+                    contentScale = ContentScale.Fit
+                )
+            } else {
+                Text(
+                    text = "QR tidak tersedia (SSID/password kosong)",
+                    fontSize = 16.sp,
+                    color = Color.White.copy(alpha = 0.80f)
+                )
+            }
         }
     }
 
+    // =========================
     // Overlay WhatsApp + QR
+    // =========================
     ZoomOverlay(
         visible = showWhatsappOverlay,
         title = if (whatsappLabel.isBlank()) "WhatsApp" else whatsappLabel,
@@ -369,7 +404,6 @@ private fun HomeScreenPreview() {
             wifiSsid = "De AZKA WiFi",
             wifiPassword = "12345678",
 
-            // contoh display lokal
             whatsappNumber = "0812 3456 7890",
             whatsappLabel = "Front Office",
         )
@@ -388,17 +422,46 @@ private fun toWaMeNumberFromDisplay(input: String): String {
         digits.startsWith("62") -> digits
         digits.startsWith("0") -> "62" + digits.drop(1)
         digits.startsWith("8") -> "62$digits"
-        else -> "" // kalau format aneh, lebih aman kosong (QR disembunyikan)
+        else -> "" // format aneh -> kosong (QR disembunyikan)
     }
 }
 
 /**
  * Build wa.me link dari nomor display.
- * Jika nomor tidak bisa dinormalisasi, return "" (biar QR tidak tampil).
  */
 private fun buildWaLinkFromDisplayNumber(displayNumber: String): String {
     val waMe = toWaMeNumberFromDisplay(displayNumber)
     return if (waMe.isBlank()) "" else "https://wa.me/$waMe"
+}
+
+/**
+ * Escape khusus untuk payload QR WiFi (format "WIFI:...").
+ * Karakter \ ; , : harus di-escape dengan backslash.
+ */
+private fun escapeWifiQrValue(value: String): String {
+    return value
+        .replace("\\", "\\\\")
+        .replace(";", "\\;")
+        .replace(",", "\\,")
+        .replace(":", "\\:")
+}
+
+/**
+ * Payload standar QR WiFi:
+ * WIFI:T:WPA;S:<ssid>;P:<password>;H:false;;
+ *
+ * security: WPA / WEP / nopass
+ */
+private fun buildWifiQrPayload(
+    ssid: String,
+    password: String,
+    security: String = "WPA",
+    hidden: Boolean = false
+): String {
+    val s = escapeWifiQrValue(ssid)
+    val p = escapeWifiQrValue(password)
+    val h = if (hidden) "true" else "false"
+    return "WIFI:T:$security;S:$s;P:$p;H:$h;;"
 }
 
 /**
