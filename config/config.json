@@ -4,7 +4,7 @@
   "wifi": { "ssid": "De AZKA WiFi", "password": "12345678" },
   "whatsapp": { "number": "+62851 22000 590", "label": "Front Office" },
   "branding": {
-  "wallpaperUrl": "https://....jpg",
+  "wallpaperUrl": "https://headhonco7.github.io/azka-launcher-config/assets/wallpaper.jpg",
   "logoUrl": ""
   }
   "text": {
