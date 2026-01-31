@@ -35,9 +35,10 @@ fun RunningText(
     modifier: Modifier = Modifier,
     text: String
 ) {
-    Box(
-        modifier = modifier
-    ) {
+    // Kalau teks kosong / blank → jangan render apa pun
+    if (text.isBlank()) return
+
+    Box(modifier = modifier) {
         Text(
             text = text,
             color = Color.White,
@@ -46,8 +47,8 @@ fun RunningText(
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.ExtraLight,
             modifier = Modifier.basicMarquee(
-                iterations = Int.MAX_VALUE, // Loop tak terbatas
-                velocity = 50.dp // Kecepatan scroll
+                iterations = Int.MAX_VALUE, // loop tanpa batas
+                velocity = 50.dp
             )
         )
     }
