@@ -28,23 +28,33 @@ import com.karuhun.feature.home.ui.HomeViewModel
 import kotlinx.serialization.Serializable
 
 @Keep
-@Serializable data object Home : Screen
+@Serializable
+data object Home : Screen
 
 fun NavGraphBuilder.homeScreen(
     onMenuItemClick: (String) -> Unit,
     onGoToMainMenu: () -> Unit,
-){
+
+    // ✅ v1.1: data WiFi dari config (default kosong biar tidak merusak pemanggil lama)
+    wifiSsid: String = "",
+    wifiPassword: String = "",
+) {
     composable<Home> {
         val viewModel = hiltViewModel<HomeViewModel>()
         val uiState by viewModel.uiState.collectAsStateWithLifecycle()
         val uiEffect = viewModel.uiEffect
         val uiAction = viewModel::onAction
+
         HomeScreen(
             onMenuItemClick = onMenuItemClick,
             uiState = uiState,
             uiAction = uiAction,
             uiEffect = uiEffect,
             onGoToMainMenu = onGoToMainMenu,
+
+            // pass ke UI
+            wifiSsid = wifiSsid,
+            wifiPassword = wifiPassword,
         )
     }
 }
