@@ -4,9 +4,9 @@
   "wifi": { "ssid": "De AZKA WiFi", "password": "12345678" },
   "whatsapp": { "number": "+62851 22000 590", "label": "Front Office" },
   "branding": {
-  "wallpaperUrl": "https://headhonco7.github.io/azka-launcher-config/assets/wallpaper.jpg",
-  "logoUrl": "https://headhonco7.github.io/azka-launcher-config/assets/logo.png"
-  }
+    "wallpaperUrl": "https://headhonco7.github.io/azka-launcher-config/assets/wallpaper.jpg",
+    "logoUrl": "https://headhonco7.github.io/azka-launcher-config/assets/logo.png"
+  },
   "text": {
     "welcomeHome": "Selamat beristirahat",
     "runningText": "Room Cleaning dilakukan by Request"
