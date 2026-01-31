@@ -35,9 +35,13 @@ fun NavGraphBuilder.homeScreen(
     onMenuItemClick: (String) -> Unit,
     onGoToMainMenu: () -> Unit,
 
-    // ✅ v1.1: data WiFi dari config (default kosong biar tidak merusak pemanggil lama)
+    // WiFi
     wifiSsid: String = "",
     wifiPassword: String = "",
+
+    // ✅ v1.1: WhatsApp
+    whatsappNumber: String = "",
+    whatsappLabel: String = "",
 ) {
     composable<Home> {
         val viewModel = hiltViewModel<HomeViewModel>()
@@ -52,9 +56,12 @@ fun NavGraphBuilder.homeScreen(
             uiEffect = uiEffect,
             onGoToMainMenu = onGoToMainMenu,
 
-            // pass ke UI
             wifiSsid = wifiSsid,
             wifiPassword = wifiPassword,
+
+            // pass WhatsApp ke UI
+            whatsappNumber = whatsappNumber,
+            whatsappLabel = whatsappLabel,
         )
     }
 }
