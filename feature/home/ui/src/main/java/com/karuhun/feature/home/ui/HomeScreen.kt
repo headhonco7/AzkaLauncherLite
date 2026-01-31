@@ -51,6 +51,7 @@ import androidx.compose.ui.unit.sp
 import androidx.tv.material3.Icon
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
+import coil.compose.AsyncImage
 import com.karuhun.core.ui.navigation.extension.collectWithLifecycle
 import com.karuhun.feature.home.ui.model.MenuItem
 import com.karuhun.launcher.core.designsystem.R
@@ -65,6 +66,7 @@ import com.karuhun.launcher.core.designsystem.icon.MoreSvgrepoCom
 import com.karuhun.launcher.core.designsystem.theme.AppTheme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
+import java.net.URLEncoder
 
 @Composable
 internal fun HomeScreen(
@@ -75,15 +77,14 @@ internal fun HomeScreen(
     onMenuItemClick: (String) -> Unit = { _ -> },
     onGoToMainMenu: () -> Unit,
 
-    // ✅ v1.1: data WiFi dari config (default kosong biar tidak merusak pemanggil lama)
+    // WiFi
     wifiSsid: String = "",
     wifiPassword: String = "",
 
-    // ✅ v1.1: data WhatsApp dari config (default kosong biar tidak merusak pemanggil lama)
+    // WhatsApp
     whatsappNumber: String = "",
     whatsappLabel: String = "",
 ) {
-    // Overlay state (local UI state)
     var showWifiOverlay by remember { mutableStateOf(false) }
     var showWhatsappOverlay by remember { mutableStateOf(false) }
 
@@ -95,7 +96,7 @@ internal fun HomeScreen(
         }
     }
 
-    // ✅ Overlay WiFi (fullscreen)
+    // Overlay WiFi
     ZoomOverlay(
         visible = showWifiOverlay,
         title = "WiFi",
@@ -128,13 +129,13 @@ internal fun HomeScreen(
         }
     }
 
-    // ✅ Overlay WhatsApp (fullscreen)
+    // Overlay WhatsApp + QR
     ZoomOverlay(
         visible = showWhatsappOverlay,
         title = if (whatsappLabel.isBlank()) "WhatsApp" else whatsappLabel,
         onDismiss = { showWhatsappOverlay = false }
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(
                 text = "WhatsApp",
                 fontSize = 16.sp,
@@ -146,18 +147,36 @@ internal fun HomeScreen(
                 color = Color.White
             )
 
-            Spacer(modifier = Modifier.height(6.dp))
+            // QR hanya muncul kalau nomor ada
+            if (whatsappNumber.isNotBlank()) {
+                val waLink = buildWaLink(whatsappNumber)
+                val qrUrl = buildQrUrl(waLink)
 
-            Text(
-                text = "Catatan",
-                fontSize = 16.sp,
-                color = Color.White.copy(alpha = 0.80f)
-            )
-            Text(
-                text = "Silakan chat untuk bantuan",
-                fontSize = 18.sp,
-                color = Color.White
-            )
+                Text(
+                    text = "Scan QR untuk chat",
+                    fontSize = 16.sp,
+                    color = Color.White.copy(alpha = 0.80f)
+                )
+
+                AsyncImage(
+                    model = qrUrl,
+                    contentDescription = "WhatsApp QR",
+                    modifier = Modifier.size(280.dp),
+                    contentScale = ContentScale.Fit
+                )
+
+                Text(
+                    text = waLink,
+                    fontSize = 14.sp,
+                    color = Color.White.copy(alpha = 0.75f)
+                )
+            } else {
+                Text(
+                    text = "QR tidak tersedia (nomor kosong)",
+                    fontSize = 16.sp,
+                    color = Color.White.copy(alpha = 0.80f)
+                )
+            }
         }
     }
 
@@ -192,11 +211,11 @@ fun LeftContent(
     modifier: Modifier = Modifier,
     guestName: String,
 
-    // ✅ WiFi
+    // WiFi
     wifiSsid: String,
     onWifiClick: () -> Unit,
 
-    // ✅ WhatsApp
+    // WhatsApp
     whatsappNumber: String,
     whatsappLabel: String,
     onWhatsappClick: () -> Unit,
@@ -230,9 +249,7 @@ fun LeftContent(
             ),
         )
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(6.dp),
-        ) {
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             Icon(
                 modifier = Modifier.size(20.dp),
                 imageVector = InstagramFSvgrepoCom,
@@ -262,7 +279,6 @@ fun LeftContent(
             )
         }
 
-        // ✅ WiFi card
         Spacer(modifier = Modifier.height(18.dp))
         WifiInfoCard(
             ssid = wifiSsid,
@@ -270,7 +286,6 @@ fun LeftContent(
             modifier = Modifier.fillMaxWidth()
         )
 
-        // ✅ WhatsApp card
         Spacer(modifier = Modifier.height(12.dp))
         WhatsappInfoCard(
             number = whatsappNumber,
@@ -293,10 +308,7 @@ fun RightContent(
         modifier = modifier,
         contentAlignment = Alignment.BottomEnd
     ) {
-        Column(
-            modifier = Modifier
-                .width(320.dp)
-        ) {
+        Column(modifier = Modifier.width(320.dp)) {
             LauncherCard(
                 onClick = {},
                 modifier = Modifier
@@ -355,8 +367,36 @@ private fun HomeScreenPreview() {
             wifiSsid = "De AZKA WiFi",
             wifiPassword = "12345678",
 
-            whatsappNumber = "+62 851 22000 590",
+            whatsappNumber = "+6285122000590",
             whatsappLabel = "Front Office",
         )
     }
+}
+
+/**
+ * Normalisasi nomor WA untuk wa.me:
+ * - hapus spasi & tanda selain angka
+ * - hapus '+' jika ada
+ */
+private fun normalizeWaNumber(input: String): String {
+    val digitsOnly = input.filter { it.isDigit() }
+    return digitsOnly
+}
+
+/**
+ * Link wa.me yang simpel & universal.
+ */
+private fun buildWaLink(number: String): String {
+    val n = normalizeWaNumber(number)
+    return "https://wa.me/$n"
+}
+
+/**
+ * Buat URL gambar QR dari layanan publik.
+ * Tidak perlu library QR di APK.
+ */
+private fun buildQrUrl(data: String): String {
+    val encoded = URLEncoder.encode(data, "UTF-8")
+    // Layanan QR publik (cukup stabil untuk kebutuhan guest house)
+    return "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=$encoded"
 }
