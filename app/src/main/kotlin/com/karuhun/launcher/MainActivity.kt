@@ -68,8 +68,9 @@ class MainActivity : ComponentActivity() {
     private var loadedConfigJsonSource by mutableStateOf("loading")
     private var loadedPropertyName by mutableStateOf("")
     private var loadedWifiSsid by mutableStateOf("")
-    private var loadedWifiPassword by mutableStateOf("") // ✅ NEW
+    private var loadedWifiPassword by mutableStateOf("")
     private var loadedWhatsapp by mutableStateOf("")
+    private var loadedWhatsappLabel by mutableStateOf("") // ✅ NEW
     private var loadedRunningText by mutableStateOf("")
     private var loadedWallpaperUrl by mutableStateOf("")
     private var loadedLogoUrl by mutableStateOf("")
@@ -87,14 +88,15 @@ class MainActivity : ComponentActivity() {
                 loadedWallpaperUrl = cfg.branding.wallpaperUrl
                 loadedPropertyName = cfg.propertyName
                 loadedWifiSsid = cfg.wifi.ssid
-                loadedWifiPassword = cfg.wifi.password // ✅ NEW
+                loadedWifiPassword = cfg.wifi.password
                 loadedWhatsapp = cfg.whatsapp.number
+                loadedWhatsappLabel = cfg.whatsapp.label // ✅ NEW
                 loadedRunningText = cfg.text.runningText
                 loadedLogoUrl = cfg.branding.logoUrl
 
                 Log.d(
                     "AZKA_CONFIG",
-                    "source=$source name=${cfg.propertyName} wifi=${cfg.wifi.ssid}"
+                    "source=$source name=${cfg.propertyName} wifi=${cfg.wifi.ssid} wa=${cfg.whatsapp.number}"
                 )
             } catch (e: Exception) {
                 loadedConfigJsonSource = "error"
@@ -121,9 +123,13 @@ class MainActivity : ComponentActivity() {
                         logoUrlFromConfig = loadedLogoUrl,
                         propertyNameFromConfig = loadedPropertyName,
 
-                        // ✅ pass WiFi config down
+                        // WiFi
                         wifiSsidFromConfig = loadedWifiSsid,
                         wifiPasswordFromConfig = loadedWifiPassword,
+
+                        // WhatsApp
+                        whatsappNumberFromConfig = loadedWhatsapp,
+                        whatsappLabelFromConfig = loadedWhatsappLabel,
                     )
                 } else {
                     OnboardingNavGraph(
@@ -151,13 +157,16 @@ fun LauncherApplication(
     logoUrlFromConfig: String,
     propertyNameFromConfig: String,
 
-    // ✅ v1.1: WiFi for Home overlay
+    // WiFi
     wifiSsidFromConfig: String,
     wifiPasswordFromConfig: String,
+
+    // ✅ WhatsApp for Home overlay
+    whatsappNumberFromConfig: String,
+    whatsappLabelFromConfig: String,
 ) {
     Box(modifier = modifier) {
 
-        // Background Image (fallback: hotelProfile background kalau wallpaperUrl kosong)
         val bgModel: Any? = if (wallpaperUrlFromConfig.isBlank()) {
             uiState.hotelProfile?.backgroundPhoto
         } else {
@@ -171,7 +180,6 @@ fun LauncherApplication(
             contentScale = ContentScale.Crop,
         )
 
-        // Dark overlay
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -182,7 +190,6 @@ fun LauncherApplication(
             val formatter = remember { DateTimeFormatter.ofPattern("dd MMMM yyyy") }
             var formattedDate by remember { mutableStateOf(LocalDate.now().format(formatter)) }
 
-            // Update date periodically (safe, side-effect only)
             LaunchedEffect(Unit) {
                 while (true) {
                     val newFormattedDate = LocalDate.now().format(formatter)
@@ -193,7 +200,6 @@ fun LauncherApplication(
                 }
             }
 
-            // Property name badge
             val propName = propertyNameFromConfig.trim()
             if (propName.isNotBlank()) {
                 androidx.compose.material3.Text(
@@ -206,7 +212,6 @@ fun LauncherApplication(
                 )
             }
 
-            // Logo fallback: config logoUrl > hotelProfile.logoWhite
             val logo = if (logoUrlFromConfig.isBlank()) {
                 uiState.hotelProfile?.logoWhite.orEmpty()
             } else {
@@ -227,12 +232,17 @@ fun LauncherApplication(
                     .weight(1f)
                     .padding(bottom = 0.dp),
             ) {
-                // ✅ Pass WiFi data into nav graph -> homeScreen -> HomeScreen -> WifiInfoCard/Overlay
                 MainAppNavGraph(
                     modifier = Modifier.fillMaxSize(),
                     navController = appState.navController,
+
+                    // WiFi
                     wifiSsid = wifiSsidFromConfig,
                     wifiPassword = wifiPasswordFromConfig,
+
+                    // ✅ WhatsApp
+                    whatsappNumber = whatsappNumberFromConfig,
+                    whatsappLabel = whatsappLabelFromConfig,
                 )
             }
 
