@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices.TV_1080p
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,9 +36,10 @@ import androidx.compose.ui.unit.sp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Text
 import coil.compose.AsyncImage
-import com.karuhun.launcher.core.designsystem.theme.AppTheme
 import com.karuhun.launcher.core.designsystem.icon.WeatherIcons
 import com.karuhun.launcher.core.designsystem.icon.WeatherIconsFont
+import com.karuhun.launcher.core.designsystem.theme.AppTheme
+import androidx.compose.foundation.shape.RoundedCornerShape
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
@@ -60,14 +62,20 @@ fun TopBar(
             modifier = Modifier.height(IntrinsicSize.Min),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            AsyncImage(
-                model = imageUrl,
-                contentDescription = "Logo",
-                modifier = Modifier
-                    .size(64.dp),
-            )
-
-            Spacer(modifier = Modifier.width(16.dp))
+            // Logo: tampilkan hanya kalau ada URL (hindari render empty model)
+            if (imageUrl.isNotBlank()) {
+                AsyncImage(
+                    model = imageUrl,
+                    contentDescription = "Logo",
+                    modifier = Modifier
+                        .size(64.dp)
+                        .clip(RoundedCornerShape(10.dp)),
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+            } else {
+                // Kalau tidak ada logo, tetap kasih jarak kecil supaya layout tidak "nempel"
+                Spacer(modifier = Modifier.width(8.dp))
+            }
         }
 
         Spacer(modifier = Modifier.weight(1f))
@@ -119,7 +127,7 @@ fun TopBarPreview() {
             roomNumber = "101",
             date = "July 26, 2024",
             temperature = "25°C",
-            imageUrl = "",
+            imageUrl = "", // aman: tidak render AsyncImage
             weatherText = "03n",
         )
     }
