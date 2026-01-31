@@ -10,7 +10,7 @@ data class Config(
     val branding: Branding = Branding()
 )
 data class Branding(
-    val wallpaperUrl: String = "",
+    val wallpaperUrl: String? = null,
     val logoUrl: String = ""
 )
 data class Wifi(val ssid: String = "", val password: String = "")
