@@ -33,6 +33,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -54,14 +58,12 @@ import com.karuhun.launcher.core.designsystem.component.FacebookSvgrepoCom
 import com.karuhun.launcher.core.designsystem.component.InstagramFSvgrepoCom
 import com.karuhun.launcher.core.designsystem.component.LauncherCard
 import com.karuhun.launcher.core.designsystem.component.MenuItemCard
+import com.karuhun.launcher.core.designsystem.component.WifiInfoCard
+import com.karuhun.launcher.core.designsystem.component.ZoomOverlay
 import com.karuhun.launcher.core.designsystem.icon.MoreSvgrepoCom
 import com.karuhun.launcher.core.designsystem.theme.AppTheme
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 
 @Composable
 internal fun HomeScreen(
@@ -71,21 +73,71 @@ internal fun HomeScreen(
     uiEffect: Flow<HomeContract.UiEffect>,
     onMenuItemClick: (String) -> Unit = { _ -> },
     onGoToMainMenu: () -> Unit,
-) {
-    uiEffect.collectWithLifecycle { effect ->
-        when(effect){
-            is HomeContract.UiEffect.ShowError -> {
 
+    // ✅ v1.1: data WiFi dari config (default kosong biar tidak merusak pemanggil lama)
+    wifiSsid: String = "",
+    wifiPassword: String = "",
+) {
+    // Overlay state (local UI state)
+    var showWifiOverlay by remember { mutableStateOf(false) }
+
+    uiEffect.collectWithLifecycle { effect ->
+        when (effect) {
+            is HomeContract.UiEffect.ShowError -> {
+                // no-op for now
             }
         }
     }
-    Row {
+
+    // ✅ Overlay ditempatkan di level paling atas agar menutup seluruh Home
+    ZoomOverlay(
+        visible = showWifiOverlay,
+        title = "WiFi",
+        onDismiss = { showWifiOverlay = false }
+    ) {
+        // Isi overlay WiFi (tanpa QR dulu, sesuai target v1.1 step awal)
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Text(
+                text = "SSID",
+                fontSize = 16.sp,
+                color = Color.White.copy(alpha = 0.80f)
+            )
+            Text(
+                text = if (wifiSsid.isBlank()) "Belum diisi" else wifiSsid,
+                fontSize = 22.sp,
+                color = Color.White
+            )
+
+            Spacer(modifier = Modifier.height(6.dp))
+
+            Text(
+                text = "Password",
+                fontSize = 16.sp,
+                color = Color.White.copy(alpha = 0.80f)
+            )
+            Text(
+                text = if (wifiPassword.isBlank()) "Belum diisi" else wifiPassword,
+                fontSize = 22.sp,
+                color = Color.White
+            )
+        }
+    }
+
+    Row(modifier = modifier) {
         LeftContent(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxHeight()
                 .padding(start = 16.dp),
-            guestName = uiState.roomDetail?.guestName.orEmpty()
+            guestName = uiState.roomDetail?.guestName.orEmpty(),
+
+            // ✅ tambahkan WiFi card di area kiri (HOME)
+            wifiSsid = wifiSsid,
+            onWifiClick = {
+                // hanya buka overlay jika cardZoomEnabled nanti sudah dipakai;
+                // untuk sekarang langsung buka (v1.1 step awal)
+                showWifiOverlay = true
+            }
         )
         RightContent(
             modifier = Modifier
@@ -102,6 +154,10 @@ internal fun HomeScreen(
 fun LeftContent(
     modifier: Modifier = Modifier,
     guestName: String,
+
+    // ✅ tambahan untuk WiFi
+    wifiSsid: String,
+    onWifiClick: () -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -163,6 +219,14 @@ fun LeftContent(
                 ),
             )
         }
+
+        // ✅ WiFi card di HOME (kiri bawah)
+        Spacer(modifier = Modifier.height(18.dp))
+        WifiInfoCard(
+            ssid = wifiSsid,
+            onClick = onWifiClick,
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 
@@ -170,7 +234,7 @@ fun LeftContent(
 fun RightContent(
     modifier: Modifier = Modifier,
     onMenuItemClick: (String) -> Unit,
-    onGoToMainMenu:() -> Unit
+    onGoToMainMenu: () -> Unit
 ) {
     val homeMenuItems = MenuItem.items
 
@@ -182,7 +246,7 @@ fun RightContent(
             modifier = Modifier
                 .width(320.dp)
         ) {
-            LauncherCard (
+            LauncherCard(
                 onClick = {},
                 modifier = Modifier
                     .fillMaxWidth()
@@ -206,8 +270,6 @@ fun RightContent(
                     vertical = 8.dp,
                 ),
             ) {
-
-                // Menampilkan item menu biasa
                 items(homeMenuItems.size) { index ->
                     MenuItemCard(
                         title = homeMenuItems[index].title,
@@ -225,7 +287,6 @@ fun RightContent(
                 onClick = { onGoToMainMenu() },
             )
         }
-
     }
 }
 
@@ -239,6 +300,8 @@ private fun HomeScreenPreview() {
             uiAction = {},
             uiEffect = emptyFlow(),
             onGoToMainMenu = {},
+            wifiSsid = "De AZKA WiFi",
+            wifiPassword = "12345678",
         )
     }
 }
