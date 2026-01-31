@@ -1,9 +1,9 @@
 package com.karuhun.launcher.data
 
 import android.content.Context
+import com.karuhun.launcher.model.Config
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import com.karuhun.launcher.model.Config
 
 class ConfigRepository(
     context: Context,
@@ -36,9 +36,37 @@ class ConfigRepository(
             }
         }
     }
+
+    /**
+     * Mengembalikan Config object terbaik yang tersedia.
+     * - Ambil raw JSON terbaik (remote/cache)
+     * - Parse jadi Config
+     * - Jika parse remote gagal, coba parse cache (kalau ada)
+     * - Jika tetap gagal, fallback Config() agar app tetap jalan (compile & runtime lebih aman)
+     */
     suspend fun getBestConfig(): Pair<Config, String> = withContext(Dispatchers.IO) {
         val (raw, source) = getBestConfigRawJson()
-        val config = ConfigJsonParser.parse(raw)
-        config to source
-}
+
+        val parsed: Config? = try {
+            ConfigJsonParser.parse(raw)
+        } catch (e: Exception) {
+            // Kalau yang gagal itu remote, coba parse cache (kalau ada)
+            if (source == "remote") {
+                val cached = storage.loadRawJson()
+                if (!cached.isNullOrBlank()) {
+                    try {
+                        ConfigJsonParser.parse(cached)
+                    } catch (_: Exception) {
+                        null
+                    }
+                } else {
+                    null
+                }
+            } else {
+                null
+            }
+        }
+
+        (parsed ?: Config()) to source
+    }
 }
